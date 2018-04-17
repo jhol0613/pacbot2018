@@ -4,7 +4,7 @@ import os
 import robomodules as rm
 from messages import *
 
-SERVER_ADDRESS = os.environ.get("BIND_ADDRESS", "localhost")
+SERVER_ADDRESS = os.environ.get("BIND_ADDRESS", "192.168.1.81")
 SERVER_PORT = os.environ.get("BIND_PORT", 11297)
 
 FREQUENCY = 30
