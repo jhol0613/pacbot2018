@@ -8,7 +8,7 @@ CTRL_2 = 38
 FORWARD = 0
 BACKWARD = 1
 
-PWM = None
+#PWM = None
 
 def setup():
 	IO.setmode(IO.BOARD)
@@ -19,6 +19,7 @@ def setup():
 	IO.output(CTRL_2, False)
 
 	IO.setup(PWM_PIN, IO.OUT)
+	global PWM
 	PWM = IO.PWM(PWM_PIN, 100)
 	PWM.start(0)
 
