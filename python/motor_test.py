@@ -47,17 +47,17 @@ def destroy():
 
 
 if __name__ == '__main__':     # Program start from here
-  setup()
-  try:
-      setDirection(FORWARD)
-	  runMotor(4, 40)
-	  runMotor(4, 15)
-	  time.sleep(1)
-	  setDirection(BACKWARD)
-	  runMotor(4, 40)
-	  runMotor(4, 15)
-  except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
-    destroy()
+	setup()
+	try:
+		setDirection(FORWARD)
+		runMotor(4, 40)
+		runMotor(4, 15)
+		time.sleep(1)
+		setDirection(BACKWARD)
+		runMotor(4, 40)
+		runMotor(4, 15)
+	except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
+		destroy()
 
 
 
