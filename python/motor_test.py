@@ -35,15 +35,15 @@ def setDirection(direction):
 
 def runMotor(duration, dutyCycle):
 	startTime = time.time()
-	PWM.changeDutyCycle(dutyCycle)
+	PWM.ChangeDutyCycle(dutyCycle)
 	while(time.time() - startTime < duration):
 		pass
-	PWM.changeDutyCycle(0)
+	PWM.ChangeDutyCycle(0)
 
 def destroy():
 	IO.output(CTRL_1, False)
 	IO.output(CTRL_2, False)
-	PWM.changeDutyCycle(0)
+	PWM.ChangeDutyCycle(0)
 	IO.cleanup()
 
 
