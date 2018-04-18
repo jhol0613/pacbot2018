@@ -25,10 +25,10 @@ def setup():
 	time.sleep(1) # wait for setup
 
 def setDirection(direction):
-	if direction = FORWARD:
+	if direction == FORWARD:
 		GPIO.output(CTRL_1, False)
 		GPIO.output(CTRL_2, True)
-	elif:
+	elif direction == BACKWARD:
 		GPIO.output(CTRL_1, True)
 		GPIO.output(CTRL_2, False)
 
