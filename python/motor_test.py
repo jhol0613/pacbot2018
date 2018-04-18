@@ -36,7 +36,6 @@ def setDirection(direction):
 def runMotor(duration, dutyCycle):
 	startTime = time.time()
 	PWM.ChangeDutyCycle(dutyCycle)
-	print("Duty Cycle: ", dutyCycle)
 	while(time.time() - startTime < duration):
 		pass
 	PWM.ChangeDutyCycle(0)
@@ -52,12 +51,12 @@ if __name__ == '__main__':     # Program start from here
 	setup()
 	try:
 		setDirection(FORWARD)
-		runMotor(15, 100)
-		# runMotor(4, 50)
-		# time.sleep(1)
-		# setDirection(BACKWARD)
-		# runMotor(4, 100)
-		# runMotor(4, 15)
+		runMotor(4, 100)
+		runMotor(4, 50)
+		time.sleep(1)
+		setDirection(BACKWARD)
+		runMotor(4, 100)
+		runMotor(4, 50)
 		destroy()
 	except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
 		destroy()
