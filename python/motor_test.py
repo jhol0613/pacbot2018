@@ -27,6 +27,7 @@ def setup():
 
 def setDirection(direction):
 	if direction == FORWARD:
+		print("got here")
 		IO.output(CTRL_1, False)
 		IO.output(CTRL_2, True)
 	elif direction == BACKWARD:
