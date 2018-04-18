@@ -11,7 +11,7 @@ BACKWARD = 1
 PWM = None
 
 def setup():
-	IO.setmode(GPIO.BOARD)
+	IO.setmode(IO.BOARD)
 
 	IO.setup(CTRL_1, IO.OUT)
 	IO.setup(CTRL_2, IO.OUT)
