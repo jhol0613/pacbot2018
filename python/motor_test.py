@@ -12,8 +12,8 @@ BACKWARD = 1
 
 encoder_count = 0
 
-def encoderCallback(self):
-	self.encoder_count += 1
+def encoderCallback():
+	encoder_count += 1
 
 def setup():
 	IO.setmode(IO.BOARD)
