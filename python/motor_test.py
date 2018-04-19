@@ -5,10 +5,12 @@ PWM_PIN = 32
 CTRL_1 = 36
 CTRL_2 = 38
 
+ENCODER = 37
+
 FORWARD = 0
 BACKWARD = 1
 
-#PWM = None
+encoder_count = 0
 
 def setup():
 	IO.setmode(IO.BOARD)
@@ -17,6 +19,9 @@ def setup():
 	IO.setup(CTRL_2, IO.OUT)
 	IO.output(CTRL_1, False)
 	IO.output(CTRL_2, False)
+
+	IO.setup(ENCODER, IO.IN)
+	IO.add_event_detect(ENCODER, GPIO.FALLING, callback=encoderCallback)
 
 	IO.setup(PWM_PIN, IO.OUT)
 	global PWM
@@ -40,6 +45,9 @@ def runMotor(duration, dutyCycle):
 		pass
 	PWM.ChangeDutyCycle(0)
 
+def encoderCallback():
+	encoder_count += 1
+
 def destroy():
 	IO.output(CTRL_1, False)
 	IO.output(CTRL_2, False)
@@ -52,11 +60,15 @@ if __name__ == '__main__':     # Program start from here
 	try:
 		setDirection(FORWARD)
 		runMotor(4, 100)
+		print("Encoder Count: ", encoder_count)
 		runMotor(4, 50)
+		print("Encoder Count: ", encoder_count)
 		time.sleep(1)
 		setDirection(BACKWARD)
 		runMotor(4, 100)
+		print("Encoder Count: ", encoder_count)
 		runMotor(4, 50)
+		print("Encoder Count: ", encoder_count)
 		destroy()
 	except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
 		destroy()
