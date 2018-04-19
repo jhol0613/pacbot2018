@@ -12,6 +12,9 @@ BACKWARD = 1
 
 encoder_count = 0
 
+def encoderCallback(self):
+	encoder_count += 1
+
 def setup():
 	IO.setmode(IO.BOARD)
 
@@ -44,9 +47,6 @@ def runMotor(duration, dutyCycle):
 	while(time.time() - startTime < duration):
 		pass
 	PWM.ChangeDutyCycle(0)
-
-def encoderCallback(self):
-	encoder_count += 1
 
 def destroy():
 	IO.output(CTRL_1, False)
