@@ -47,6 +47,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
         self.write(msg, MsgType.UltrasonicArray)
 
     def initializeSensors(self):
+        GPIO.setmode(GPIO.BOARD)
         for pin in TRIG_PINS:
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, False)
