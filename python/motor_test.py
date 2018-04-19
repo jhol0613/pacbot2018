@@ -45,7 +45,7 @@ def runMotor(duration, dutyCycle):
 	startTime = time.time()
 	PWM.ChangeDutyCycle(dutyCycle)
 	while(time.time() - startTime < duration):
-		print(IO.input(ENCODER))
+		#print(IO.input(ENCODER))
 		pass
 	PWM.ChangeDutyCycle(0)
 
