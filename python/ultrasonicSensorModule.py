@@ -61,6 +61,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
         GPIO.output(TRIG_PINS[sensor], True)
         time.sleep(0.00001)
         GPIO.output(sensor, False)
+        print ("Sensor Number: ", sensor)
         while GPIO.input(ECHO_PINS[sensor])==0:
             pulse_start = time.time()
         while GPIO.input(ECHO_PINS[sensor])==1:
