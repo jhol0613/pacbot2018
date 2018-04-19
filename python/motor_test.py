@@ -10,9 +10,9 @@ ENCODER = 11
 FORWARD = 0
 BACKWARD = 1
 
-encoder_count = 0
+# encoder_count = 0
 
-def encoderCallback():
+def encoderCallback(self):
 	encoder_count += 1
 
 def setup():
@@ -30,6 +30,9 @@ def setup():
 	global PWM
 	PWM = IO.PWM(PWM_PIN, 100)
 	PWM.start(0)
+
+	global encoder_count
+	encoder_count = 0
 
 	time.sleep(1) # wait for setup
 
