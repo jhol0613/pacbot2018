@@ -5,7 +5,7 @@ PWM_PIN = 32
 CTRL_1 = 36
 CTRL_2 = 38
 
-ENCODER = 37
+ENCODER = 11
 
 FORWARD = 0
 BACKWARD = 1
@@ -45,7 +45,7 @@ def runMotor(duration, dutyCycle):
 		pass
 	PWM.ChangeDutyCycle(0)
 
-def encoderCallback():
+def encoderCallback(self):
 	encoder_count += 1
 
 def destroy():
