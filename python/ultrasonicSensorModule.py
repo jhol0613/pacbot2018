@@ -7,6 +7,7 @@ from messages import *
 import RPi.GPIO as GPIO
 import time
 import sys
+import atexit
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11297)
@@ -70,7 +71,12 @@ class UltrasonicSensorModule(rm.ProtoModule):
         distance = round(distance, 2)
         return distance
 
+def destroy():
+    GPIO.cleanup()
+    print("Program safely terminated")
+
 def main():
+    atexit.register(destroy)
     module = UltrasonicSensorModule(ADDRESS, PORT)
     module.run()
 
