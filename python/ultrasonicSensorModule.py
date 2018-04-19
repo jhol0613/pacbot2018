@@ -58,19 +58,19 @@ class UltrasonicSensorModule(rm.ProtoModule):
         time.sleep(2)
 
     def pulse(self, sensor):
-
         GPIO.output(TRIG_PINS[sensor], True)
         time.sleep(0.00001)
         GPIO.output(TRIG_PINS[sensor], False)
-
 
         while GPIO.input(ECHO_PINS[sensor])==0:
             pulse_start = time.time()
         while GPIO.input(ECHO_PINS[sensor])==1:
             pulse_end = time.time()
+
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17150
         distance = round(distance, 2)
+        print ("got here")
         return distance
 
 def destroy():
