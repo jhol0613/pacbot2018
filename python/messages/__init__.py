@@ -4,8 +4,7 @@ from .ultrasonicArray_pb2 import UltrasonicArray
 
 class MsgType(Enum):
     LIGHT_STATE = 0
-    MOCK_MSG = 1
-    ULTRASONIC_ARRAY = 2
+    ULTRASONIC_ARRAY = 1
 
 message_buffers = {
     MsgType.LIGHT_STATE: LightState,
