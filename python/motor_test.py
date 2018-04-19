@@ -13,6 +13,7 @@ BACKWARD = 1
 # encoder_count = 0
 
 def encoderCallback(self):
+	print("got here")
 	encoder_count += 1
 
 def setup():
