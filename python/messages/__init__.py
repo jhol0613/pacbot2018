@@ -1,6 +1,6 @@
 from enum import Enum
 from .lightState_pb2 import LightState
-from .mockMsg_pb2 import MockMsg
+from .ultrasonicArray_pb2 import UltrasonicArray
 
 class MsgType(Enum):
     LIGHT_STATE = 0
@@ -9,9 +9,8 @@ class MsgType(Enum):
 
 message_buffers = {
     MsgType.LIGHT_STATE: LightState,
-    MsgType.MOCK_MSG: MockMsg,
     MsgType.ULTRASONIC_ARRAY: UltrasonicArray
 }
 
 
-__all__ = ['MsgType', 'message_buffers', 'LightState', 'MockMsg', 'UltrasonicArray']
+__all__ = ['MsgType', 'message_buffers', 'LightState', 'UltrasonicArray']
