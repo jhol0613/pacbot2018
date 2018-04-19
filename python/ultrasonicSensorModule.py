@@ -30,7 +30,6 @@ class UltrasonicSensorModule(rm.ProtoModule):
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY)
         self.initializeSensors()
         print("Ultrasonic Sensors Initialized")
-        sys.exit()
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
