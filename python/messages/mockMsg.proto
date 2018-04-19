@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package gamePlayer;
+
+message MockMsg {
+
+  required int32 xValue = 1;
+  required int32 yValue = 2;
+}
