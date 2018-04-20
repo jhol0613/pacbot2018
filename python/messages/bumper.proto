@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package gamePlayer;
+
+message Bumper {
+
+  required Side side = 1;
+
+  enum Side {
+    LEFT = 0;
+    RIGHT = 1;
+  }
+
+}

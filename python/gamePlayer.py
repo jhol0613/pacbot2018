@@ -5,7 +5,7 @@ import robomodules as rm
 from messages import message_buffers, MsgType
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
-PORT = os.environ.get("BIND_PORT", 11297)
+PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 2
 

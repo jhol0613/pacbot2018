@@ -4,7 +4,7 @@ import os
 from messages import MsgType
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
-PORT = os.environ.get("BIND_PORT", 11297)
+PORT = os.environ.get("BIND_PORT", 11293)
 
 def main():
     #print("Address: ", ADDRESS)

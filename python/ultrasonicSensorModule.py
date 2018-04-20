@@ -6,11 +6,10 @@ from messages import *
 
 import RPi.GPIO as GPIO
 import time
-import sys
 import atexit
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
-PORT = os.environ.get("BIND_PORT", 11297)
+PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 10
 
@@ -70,7 +69,6 @@ class UltrasonicSensorModule(rm.ProtoModule):
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17150
         distance = round(distance, 2)
-        print ("got here")
         return distance
 
 def destroy():

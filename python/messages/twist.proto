@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+package gamePlayer;
+
+message Twist {
+
+  required int32 velocity = 1;
+  required int32 omega = 2;
+
+}
