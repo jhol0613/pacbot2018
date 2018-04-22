@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package gamePlayer;
+
+message EncoderControl {
+
+  required Command command = 1;
+
+  enum Command {
+  	BEGIN = 0;
+  	RESET = 1;
+  }
+
+}
