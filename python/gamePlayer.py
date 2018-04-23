@@ -16,9 +16,10 @@ class GamePlayer(rm.ProtoModule):
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
-        # if msg_type == MsgType.MOCK_MSG:
-        #     self.x = msg.xValue
-        #     self.y = msg.yValue
+        if msg_type == MsgType.MOCK_MSG:
+            self.x = msg.xValue
+            self.y = msg.yValue
+            print("Mock message received")
         return
 
     def tick(self):
