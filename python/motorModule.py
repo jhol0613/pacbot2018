@@ -109,7 +109,7 @@ class MotorModule(rm.ProtoModule):
             self.left_pwm.ChangeDutyCycle(abs(leftSpeed))
             self.right_pwm.ChangeDutyCycle(abs(rightSpeed))
 
-def destroy():
+def destroy(*args):
     GPIO.cleanup()
     print("Cleaned up motor pins")
     print("Program safely terminated")
