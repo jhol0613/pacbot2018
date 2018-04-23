@@ -29,7 +29,7 @@ RIGHT_MOTOR = 1
 class MotorModule(rm.ProtoModule):
     def __init__(self, addr, port):
         print("Initializing Motors...")
-        self.subscriptions[MsgType.TWIST]
+        self.subscriptions = [MsgType.TWIST]
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.initializeMotors()
         self.leftSpeed = 0
