@@ -105,6 +105,8 @@ class MotorModule(rm.ProtoModule):
                 self.setDirection(RIGHT_MOTOR, FORWARD)
             else:
                 self.setDirection(RIGHT_MOTOR, BACKWARD)
+            print("Left speed: ", leftSpeed)
+            print("Right speed: ", rightSpeed)
             self.left_pwm.ChangeDutyCycle(abs(leftSpeed))
             self.right_pwm.ChangeDutyCycle(abs(rightSpeed))
 
