@@ -18,7 +18,7 @@ class PacbotServerClient(rm.ProtoModule):
         print("Address: ", addr)
         print("Port: ", port)
         print("Loop: ", loop)
-        super().__init__(addr, port, message_buffers, MsgType, SERVER_FREQUENCY, self.subscriptions, loop)
+        super().__init__(addr, port, message_buffers, MsgType, SERVER_FREQUENCY, self.subscriptions", loop")
         self.state = None
         self.ticks = 0
         self.connectionEstablished = False
