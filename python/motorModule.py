@@ -88,12 +88,10 @@ class MotorModule(rm.ProtoModule):
     def processTwist(self, linSpeed, rotSpeed):
         leftSpeed = linSpeed
         rightSpeed = linSpeed
-        if rotSpeed > 0:
-            leftSpeed += rotSpeed
-            rightSpeed -= rotSpeed
-        else:
-            leftSpeed -= rotSpeed
-            rightSpeed -= rotSpeed
+
+        leftSpeed += rotSpeed
+        rightSpeed -= rotSpeed
+
         if leftSpeed > 100 or leftSpeed < -100 or rightSpeed > 100 or rightSpeed < -100:
             print("Exceeded speed limits!")
         else:
