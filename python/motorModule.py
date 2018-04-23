@@ -112,7 +112,7 @@ def destroy():
 
 def main():
     atexit.register(destroy)
-    module = BumperModule(ADDRESS, PORT)
+    module = MotorModule(ADDRESS, PORT)
     module.run()
 
 if __name__ == "__main__":
