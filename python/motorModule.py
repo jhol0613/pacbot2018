@@ -57,8 +57,8 @@ class MotorModule(rm.ProtoModule):
         GPIO.setup(RIGHT_1, GPIO.OUT)
         GPIO.setup(RIGHT_2, GPIO.OUT)
 
-        self.right_pwm = GPIO.PWM(RIGHT_PWM, 0)
-        self.left_pwm = GPIO.PWM(LEFT_PWM, 0)
+        self.right_pwm = GPIO.PWM(RIGHT_PWM, 100)
+        self.left_pwm = GPIO.PWM(LEFT_PWM, 100)
 
         self.right_pwm.start(0)
         self.left_pwm.start(0)
