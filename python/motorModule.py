@@ -62,7 +62,8 @@ class MotorModule(rm.ProtoModule):
 
         self.right_pwm.start(0)
         self.left_pwm.start(0)
-        self.setDirection(FORWARD)
+        self.setDirection(LEFT_MOTOR, FORWARD)
+        self.setDirection(RIGHT_MOTOR, FORWARD)
 
         time.sleep(1)
 
