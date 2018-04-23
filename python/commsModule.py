@@ -62,6 +62,8 @@ class PacbotCommsModule(rm.ProtoModule):
 def main():
     SERVER_ADDRESSS = sys.argv[1]
     SERVER_PORT = int(sys.argv[2])
+    print("Server Address: ", SERVER_ADDRESS)
+    print("Server Port: ", SERVER_PORT)
     module = PacbotCommsModule(SERVER_ADDRESS, SERVER_PORT, LOCAL_ADDRESS, LOCAL_PORT)
     module.run()
 
