@@ -39,11 +39,10 @@ class OdometryModule(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         if self.running:
             msg = EncoderReport()
-        
-
+            msg.left = self.leftClicks
+            msg.right = self.rightClicks
             msg = msg.SerializeToString()
-            self.write(msg, MsgType.Bumper)
-
+            self.write(msg, MsgType.EncoderReport)
 
     def initializeBumpers(self):
         GPIO.setmode(GPIO.BOARD)
