@@ -11,8 +11,9 @@ if [ "$#" -eq 3 ]; then
 	python3 commsModule.py "$1" "$2" &
 	sleep 5 # Give modules time to initialize
 	echo "Communications module running"
+
+	python3 gamePlayer.py
+	echo "Player module running"
 else
 	echo "Please include external server IP and port"
 fi
-
-python3 gamePlayer.py
