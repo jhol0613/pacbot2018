@@ -5,6 +5,7 @@ if [ "$#" -eq 2 ]; then
 
 	echo "Initializing modules..."
 	python3 rmServer.py &
+	python3 commsModule.py &
 	python3 motorModule.py &
 	python3 bumperModule.py &
 
@@ -18,10 +19,11 @@ if [ "$#" -eq 2 ]; then
 
 	# End background processes cleanly on main program exit
 	echo "Shutting down all modules..."
+	sleep 1
 	trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 
 else
 
 	echo "Please include external server IP and port"
-	
+
 fi
