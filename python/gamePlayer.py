@@ -27,7 +27,7 @@ class GamePlayer(rm.ProtoModule):
         # for this mock module we will print out the current value
         msg = Twist()
         msg.velocity = 40
-        msg.omega = 0
+        msg.omega = -10
         msg = msg.SerializeToString()
         self.write(msg, MsgType.TWIST)
 
