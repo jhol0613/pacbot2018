@@ -20,7 +20,10 @@ class GamePlayer(rm.ProtoModule):
         # if msg_type == MsgType.BUMPER:
         #     self.moving = False
         if msg_type == MsgType.LIGHT_STATE:
-            self.moving = False
+            if msg.mode == LightState.RUNNING:
+                self.moving = True
+            elif msg.mode == LightState.PAUSED:
+                self.moving = False
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
@@ -29,7 +32,6 @@ class GamePlayer(rm.ProtoModule):
         if self.moving:
             # msg.velocity = 98
             # msg.omega = 2
-            return
             print("Currently moving")
         else:
             print("Currently stopped")
