@@ -7,6 +7,7 @@ from messages import *
 import RPi.GPIO as GPIO
 import time
 import signal
+import sys
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
