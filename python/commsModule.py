@@ -9,12 +9,15 @@ SERVER_PORT = os.environ.get("BIND_PORT", 11297)
 LOCAL_ADDRESS = os.environ.get("LOCAL_ADDRESS","localhost")
 LOCAL_PORT = os.environ.get("LOCAL_PORT", 11293)
 
-SERVER_FREQUENCY = 0
+SERVER_FREQUENCY = 1
 LOCAL_FREQUENCY = 30
 
 class PacbotServerClient(rm.ProtoModule):
     def __init__(self, addr, port, loop):
         self.subscriptions = [MsgType.LIGHT_STATE]
+        print("Address: ", addr)
+        print("Port: ", port)
+        print("Loop: ", loop)
         super().__init__(addr, port, message_buffers, MsgType, SERVER_FREQUENCY, self.subscriptions, loop)
         self.state = None
         self.ticks = 0
