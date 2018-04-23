@@ -79,8 +79,8 @@ def destroy(*args):
     print("Bumper module safely terminated")
 
 def main():
-    signal.signal(signal.SIGINT, destroy)
-    signal.signal(signal.SIGTERM, destroy)
+    # signal.signal(signal.SIGINT, destroy)
+    # signal.signal(signal.SIGTERM, destroy)
     module = BumperModule(ADDRESS, PORT)
     module.run()
 
