@@ -1,7 +1,7 @@
 #!/bin/bash
 # Run script: ./pacbot.sh external_server_ip external_server_port
 
-if [ "$#" -eq 3 ]; then
+if [ "$#" -eq 2 ]; then
 	python3 rmServer.py &
 	python3 motorModule.py &
 	python3 bumperModule.py &
