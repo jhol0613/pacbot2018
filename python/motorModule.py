@@ -11,7 +11,7 @@ import atexit
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 20
+FREQUENCY = 0
 
 LEFT_PWM = 32
 LEFT_1 = 36
@@ -40,9 +40,7 @@ class MotorModule(rm.ProtoModule):
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
-        print("Generic message received")
         if msg_type == MsgType.TWIST:
-            print("Received twist message")
             self.processTwist(msg.velocity, msg.omega)
 
     def tick(self):
@@ -107,8 +105,8 @@ class MotorModule(rm.ProtoModule):
                 self.setDirection(RIGHT_MOTOR, FORWARD)
             else:
                 self.setDirection(RIGHT_MOTOR, BACKWARD)
-            self.left_pwm.ChangeDutyCycle(leftSpeed)
-            self.right_pwm.ChangeDutyCycle(rightSpeed)
+            self.left_pwm.ChangeDutyCycle(abs(leftSpeed))
+            self.right_pwm.ChangeDutyCycle(abs(rightSpeed))
 
 def destroy():
     GPIO.cleanup()
