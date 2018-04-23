@@ -1,9 +1,7 @@
 #!/bin/bash
 # Run script: ./pacbot.sh external_server_ip external_server_port
 
-echo "Number of args: "
-echo "$#"
-if ["$#" = 3]
+if [ "$#" -eq 3 ]
 then
 	python3 rmServer.py &
 	python3 motorModule.py &
