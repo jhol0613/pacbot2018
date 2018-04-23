@@ -50,15 +50,15 @@ class MotorModule(rm.ProtoModule):
     def initializeMotors(self):
         GPIO.setmode(GPIO.BOARD)
 
-        GPIO.setup(LEFT_PWM, IO.OUT)
-        GPIO.setup(LEFT_1, IO.OUT)
-        GPIO.setup(LEFT_2, IO.OUT)
-        GPIO.setup(RIGHT_PWM, IO.OUT)
-        GPIO.setup(RIGHT_1, IO.OUT)
-        GPIO.setup(RIGHT_2, IO.OUT)
+        GPIO.setup(LEFT_PWM, GPIO.OUT)
+        GPIO.setup(LEFT_1, GPIO.OUT)
+        GPIO.setup(LEFT_2, GPIO.OUT)
+        GPIO.setup(RIGHT_PWM, GPIO.OUT)
+        GPIO.setup(RIGHT_1, GPIO.OUT)
+        GPIO.setup(RIGHT_2, GPIO.OUT)
 
-        self.right_pwm = IO.PWM(RIGHT_PWM, 0)
-        self.left_pwm = IO.PWM(LEFT_PWM, 0)
+        self.right_pwm = GPIO.PWM(RIGHT_PWM, 0)
+        self.left_pwm = GPIO.PWM(LEFT_PWM, 0)
 
         self.right_pwm.start(0)
         self.left_pwm.start(0)
