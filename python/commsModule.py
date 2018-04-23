@@ -32,7 +32,7 @@ class PacbotServerClient(rm.ProtoModule):
 
     def tick(self):
         if self.ticks > 2:
-            print "Connection to game engine failed"
+            print("Connection to game engine failed")
             self.connectionEstablished = False
         self.ticks += 1
         return
