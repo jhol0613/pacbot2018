@@ -2,7 +2,7 @@
 
 import os
 import robomodules as rm
-from messages import *#message_buffers, MsgType
+from messages import *
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)

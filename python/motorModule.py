@@ -39,13 +39,14 @@ class MotorModule(rm.ProtoModule):
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
+        print("Generic message received")
         if msg_type == MsgType.Twist:
             print("Received twist message")
             self.processTwist(msg.velocity, msg.omega)
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
-
+        print("tick")
         return
 
     def initializeMotors(self):
