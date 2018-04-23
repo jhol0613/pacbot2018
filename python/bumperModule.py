@@ -56,10 +56,10 @@ class BumperModule(rm.ProtoModule):
             if not self.rightFlag:
                 self.rightSent = False
 
-    def setLeftFlag(self):
+    def setLeftFlag(self, channel):
         self.leftFlag = not self.leftFlag
 
-    def setRightFlag(self):
+    def setRightFlag(self, channel):
         self.rightFlag = not self.rightFlag
 
     def initializeBumpers(self):
