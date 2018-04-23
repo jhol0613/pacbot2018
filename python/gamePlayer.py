@@ -19,7 +19,6 @@ class GamePlayer(rm.ProtoModule):
         # This gets called whenever any message is received
         if msg_type == MsgType.BUMPER:
             self.moving = False
-        return
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency

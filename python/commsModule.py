@@ -1,6 +1,7 @@
 import os
 import robomodules as rm
 from messages import *
+import sys
 
 SERVER_ADDRESS = os.environ.get("BIND_ADDRESS","192.168.1.81")
 SERVER_PORT = os.environ.get("BIND_PORT", 11297)
@@ -49,6 +50,8 @@ class PacbotCommsModule(rm.ProtoModule):
             self.write(state.SerializeToString(), MsgType.LIGHT_STATE)
 
 def main():
+    SERVER_ADDRESSS = sys.argv[1]
+    SERVER_PORT = int(sys.argv[2])
     module = PacbotCommsModule(SERVER_ADDRESS, SERVER_PORT, LOCAL_ADDRESS, LOCAL_PORT)
     module.run()
 
