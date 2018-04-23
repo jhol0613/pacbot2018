@@ -29,6 +29,7 @@ class GamePlayer(rm.ProtoModule):
         if self.moving:
             # msg.velocity = 98
             # msg.omega = 2
+            return
             print("Currently moving")
         else:
             print("Currently stopped")

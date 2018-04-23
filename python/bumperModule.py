@@ -74,7 +74,7 @@ class BumperModule(rm.ProtoModule):
         time.sleep(1)
 
 
-def destroy():
+def destroy(*args):
     GPIO.cleanup()
     print("Bumper module safely terminated")
 

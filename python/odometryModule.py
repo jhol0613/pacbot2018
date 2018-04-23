@@ -65,7 +65,7 @@ class OdometryModule(rm.ProtoModule):
         self.leftClicks = 0
         self.rightClicks = 0
 
-def destroy():
+def destroy(*args):
     GPIO.cleanup()
     print("Odometry module safely terminated")
 

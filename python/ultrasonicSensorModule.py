@@ -71,7 +71,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
         distance = round(distance, 2)
         return distance
 
-def destroy():
+def destroy(*args):
     GPIO.cleanup()
     print("Ultrasonic sensor module safely terminated")
 
