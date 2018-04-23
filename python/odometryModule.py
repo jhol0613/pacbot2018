@@ -68,6 +68,7 @@ class OdometryModule(rm.ProtoModule):
 def destroy(*args):
     GPIO.cleanup()
     print("Odometry module safely terminated")
+    sys.exit()
 
 def main():
     signal.signal(signal.SIGINT, destroy)

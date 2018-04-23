@@ -74,10 +74,11 @@ class UltrasonicSensorModule(rm.ProtoModule):
 def destroy(*args):
     GPIO.cleanup()
     print("Ultrasonic sensor module safely terminated")
+    sys.exit()
 
 def main():
-    # signal.signal(signal.SIGINT, destroy)
-    # signal.signal(signal.SIGTERM, destroy)
+    signal.signal(signal.SIGINT, destroy)
+    signal.signal(signal.SIGTERM, destroy)
     module = UltrasonicSensorModule(ADDRESS, PORT)
     module.run()
 

@@ -111,10 +111,11 @@ class MotorModule(rm.ProtoModule):
 def destroy(*args):
     GPIO.cleanup()
     print("Motor module safely terminated")
+    sys.exit()
 
 def main():
-    # signal.signal(signal.SIGINT, destroy)
-    # signal.signal(signal.SIGTERM, destroy)
+    signal.signal(signal.SIGINT, destroy)
+    signal.signal(signal.SIGTERM, destroy)
     module = MotorModule(ADDRESS, PORT)
     module.run()
 

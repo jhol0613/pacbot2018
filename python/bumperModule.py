@@ -77,10 +77,11 @@ class BumperModule(rm.ProtoModule):
 def destroy(*args):
     GPIO.cleanup()
     print("Bumper module safely terminated")
+    sys.exit()
 
 def main():
-    # signal.signal(signal.SIGINT, destroy)
-    # signal.signal(signal.SIGTERM, destroy)
+    signal.signal(signal.SIGINT, destroy)
+    signal.signal(signal.SIGTERM, destroy)
     module = BumperModule(ADDRESS, PORT)
     module.run()
 
