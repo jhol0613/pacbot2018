@@ -13,6 +13,8 @@ if [ "$#" -eq 2 ]; then
 
 	python3 gamePlayer.py
 	echo "Player module running"
+	# End background processes cleanly on main program exit
+	trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 else
 	echo "Please include external server IP and port"
 fi
