@@ -9,7 +9,7 @@ SERVER_PORT = os.environ.get("BIND_PORT", 11297)
 LOCAL_ADDRESS = os.environ.get("LOCAL_ADDRESS","localhost")
 LOCAL_PORT = os.environ.get("LOCAL_PORT", 11293)
 
-SERVER_FREQUENCY = 1
+SERVER_FREQUENCY = 0
 LOCAL_FREQUENCY = 30
 
 class PacbotServerClient(rm.ProtoModule):
