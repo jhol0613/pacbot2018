@@ -5,12 +5,11 @@ if [ "$#" -eq 2 ]; then
 	python3 rmServer.py &
 	python3 motorModule.py &
 	python3 bumperModule.py &
-	echo "Sensor and motor modules running"
 
 	# $1 and $2 are the external server ip and port respectively
-	python3 commsModule.py "$1" "$2" &
+	#python3 commsModule.py "$1" "$2" &
 	sleep 5 # Give modules time to initialize
-	echo "Communications module running"
+	echo "All sensor and motor modules running"
 
 	python3 gamePlayer.py
 	echo "Player module running"
