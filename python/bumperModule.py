@@ -20,7 +20,7 @@ class BumperModule(rm.ProtoModule):
     def __init__(self, addr, port):
         print("Initializing Bumpers...")
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY)
-        self.initializeSensors()
+        self.initializeBumpers()
         self.leftFlag = False;
         self.rightFlag = False;
         self.leftSent = False;
