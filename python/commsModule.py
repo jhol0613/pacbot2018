@@ -9,7 +9,7 @@ SERVER_PORT = os.environ.get("BIND_PORT", 11297)
 LOCAL_ADDRESS = os.environ.get("LOCAL_ADDRESS","localhost")
 LOCAL_PORT = os.environ.get("LOCAL_PORT", 11293)
 
-SERVER_FREQUENCY = 0
+SERVER_FREQUENCY = 1
 LOCAL_FREQUENCY = 30
 
 class PacbotServerClient(rm.ProtoModule):
@@ -17,14 +17,24 @@ class PacbotServerClient(rm.ProtoModule):
         self.subscriptions = [MsgType.LIGHT_STATE]
         super().__init__(addr, port, message_buffers, MsgType, SERVER_FREQUENCY, self.subscriptions, loop)
         self.state = None
+        self.ticks = 0
+        self.connectionEstablished = False
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
         # This module will connect to server and receive the game state
         if msg_type == MsgType.LIGHT_STATE:
+            if not self.connectionEstablished:
+                print("Established connection to game engine")
+                self.connectionEstablished = True
+                self.ticks = 0
             self.state = msg
 
     def tick(self):
+        if self.ticks > 2:
+            print "Connection to game engine failed"
+            self.connectionEstablished = False
+        self.ticks += 1
         return
 
     def get_state(self):
