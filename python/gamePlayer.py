@@ -11,13 +11,15 @@ FREQUENCY = 30
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
-        self.subscriptions = [MsgType.BUMPER]
+        self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE]
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.moving = True
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
-        if msg_type == MsgType.BUMPER:
+        # if msg_type == MsgType.BUMPER:
+        #     self.moving = False
+        if msg_type == MsgType.LIGHT_STATE:
             self.moving = False
 
     def tick(self):
@@ -25,13 +27,15 @@ class GamePlayer(rm.ProtoModule):
         # for this mock module we will print out the current value
         msg = Twist()
         if self.moving:
-            msg.velocity = 98
-            msg.omega = 2
+            # msg.velocity = 98
+            # msg.omega = 2
+            print("Currently moving")
         else:
-            msg.velocity = 0
-            msg.omega = 0
-        msg = msg.SerializeToString()
-        self.write(msg, MsgType.TWIST)
+            print("Currently stopped")
+            # msg.velocity = 0
+            # msg.omega = 0
+        # msg = msg.SerializeToString()
+        # self.write(msg, MsgType.TWIST)
 
 def main():
     module = GamePlayer(ADDRESS, PORT)
