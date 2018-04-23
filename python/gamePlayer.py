@@ -26,7 +26,7 @@ class GamePlayer(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
         msg = Twist()
-        msg.velocity = 40
+        msg.velocity = 98
         msg.omega = 2
         msg = msg.SerializeToString()
         self.write(msg, MsgType.TWIST)
