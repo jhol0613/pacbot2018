@@ -116,8 +116,8 @@ def destroy():
 
 def main():
     #atexit.register(destroy)
-    signal.signal(signal.SIGINT, cleanup)
-    signal.signal(signal.SIGTERM, cleanup)
+    signal.signal(signal.SIGINT, destroy)
+    signal.signal(signal.SIGTERM, destroy)
     module = MotorModule(ADDRESS, PORT)
     module.run()
 
