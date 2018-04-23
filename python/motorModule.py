@@ -41,7 +41,7 @@ class MotorModule(rm.ProtoModule):
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
         print("Generic message received")
-        if msg_type == MsgType.Twist:
+        if msg_type == MsgType.TWIST:
             print("Received twist message")
             self.processTwist(msg.velocity, msg.omega)
 
