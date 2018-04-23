@@ -6,7 +6,6 @@ from messages import *
 
 import RPi.GPIO as GPIO
 import time
-import atexit
 import signal
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
@@ -111,11 +110,9 @@ class MotorModule(rm.ProtoModule):
 
 def destroy(*args):
     GPIO.cleanup()
-    print("Cleaned up motor pins")
-    print("Program safely terminated")
+    print("Motor module safely terminated")
 
 def main():
-    #atexit.register(destroy)
     signal.signal(signal.SIGINT, destroy)
     signal.signal(signal.SIGTERM, destroy)
     module = MotorModule(ADDRESS, PORT)

@@ -6,7 +6,7 @@ from messages import *
 
 import RPi.GPIO as GPIO
 import time
-import atexit
+import signal
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
@@ -67,10 +67,11 @@ class OdometryModule(rm.ProtoModule):
 
 def destroy():
     GPIO.cleanup()
-    print("Program safely terminated")
+    print("Odometry module safely terminated")
 
 def main():
-    atexit.register(destroy)
+    signal.signal(signal.SIGINT, destroy)
+    signal.signal(signal.SIGTERM, destroy)
     module = BumperModule(ADDRESS, PORT)
     module.run()
 
