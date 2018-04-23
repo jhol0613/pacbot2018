@@ -25,7 +25,7 @@ class GamePlayer(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
         msg = Twist()
-        if self.Moving:
+        if self.moving:
             msg.velocity = 98
             msg.omega = 2
         else:
