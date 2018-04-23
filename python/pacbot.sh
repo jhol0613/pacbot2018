@@ -5,7 +5,7 @@ if [ "$#" -eq 2 ]; then
 
 	echo "Initializing modules..."
 	python3 rmServer.py &
-	python3 commsModule.py &
+	python3 commsModule.py  "$1" "$2" &
 	python3 motorModule.py &
 	python3 bumperModule.py &
 
