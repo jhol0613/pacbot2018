@@ -2,6 +2,8 @@
 # Run script: ./pacbot.sh external_server_ip external_server_port
 
 if [ "$#" -eq 2 ]; then
+
+	echo "Initializing modules..."
 	python3 rmServer.py &
 	python3 motorModule.py &
 	python3 bumperModule.py &
@@ -10,11 +12,16 @@ if [ "$#" -eq 2 ]; then
 	#python3 commsModule.py "$1" "$2" &
 	sleep 5 # Give modules time to initialize
 	echo "All sensor and motor modules running"
+	echo "Starting player module..."
 
 	python3 gamePlayer.py
-	echo "Player module running"
+
 	# End background processes cleanly on main program exit
+	echo "Shutting down all modules..."
 	trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+
 else
+
 	echo "Please include external server IP and port"
+	
 fi
