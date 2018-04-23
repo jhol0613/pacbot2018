@@ -56,14 +56,20 @@ class BumperModule(rm.ProtoModule):
             if not self.rightFlag:
                 self.rightSent = False
 
+    def setLeftFlag(self):
+        self.leftFlag = not self.leftFlag
+
+    def setRightFlag(self):
+        self.rightFlag = not self.rightFlag
+
     def initializeBumpers(self):
         GPIO.setmode(GPIO.BOARD)
 
         GPIO.setup(LEFT_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(RIGHT_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-        GPIO.add_event_detect(LEFT_BUTTON, GPIO.BOTH, lambda _: self.leftFlag = not self.leftFlag, bouncetime=300)
-        GPIO.add_event_detect(RIGHT_BUTTON, GPIO.BOTH, lambda _: self.rightFlag = not self.rightFlag, bouncetime=300)
+        GPIO.add_event_detect(LEFT_BUTTON, GPIO.BOTH, self.setLeftFlag, bouncetime=300)
+        GPIO.add_event_detect(RIGHT_BUTTON, GPIO.BOTH, self.setRightFlag, bouncetime=300)
 
         time.sleep(1)
 
