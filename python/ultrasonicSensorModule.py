@@ -80,6 +80,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
                 return TIMEOUT_DISTANCE
 
         distance = round(distance, 2)
+        time.sleep(.001)
         return distance
 
     # Pulses 2 sensors at once to save time
