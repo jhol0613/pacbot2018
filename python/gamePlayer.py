@@ -38,6 +38,7 @@ class GamePlayer(rm.ProtoModule):
         # for this mock module we will print out the current value
         wheels_msg = Twist()
         odom_msg = EncoderControl()
+        print("Tick?")
         if (not self.odom_reading) or (self.odom_reading.left > 300):
             print("Sending encoder command!")
             odom_msg.command = EncoderControl.RESET
