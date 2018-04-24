@@ -125,12 +125,12 @@ class GamePlayer(rm.ProtoModule):
         twist = Twist()
         if not self.action_started:
             self.action_started = True
-            encoder = EncoderControl()
+            encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.BEGIN
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
         if self.turn90RightExitCondition():
             self.action_complete = True
-            encoder = EncoderControl()
+            encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.RESET
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
             twist.velocity = 0
