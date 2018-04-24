@@ -71,6 +71,9 @@ class UltrasonicSensorModule(rm.ProtoModule):
 
         while GPIO.input(ECHO_PINS[sensor])==0:
             pulse_start = time.time()
+            distance = (time.time() - pulse_start) * 17150
+            if distance > TIMEOUT_DISTANCE:
+                return TIMEOUT_DISTANCE
         while GPIO.input(ECHO_PINS[sensor])==1:
             distance = (time.time() - pulse_start) * 17150
             if distance > TIMEOUT_DISTANCE:
