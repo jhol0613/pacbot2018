@@ -14,7 +14,7 @@ encoder_count = 0
 
 def encoderCallback(channel):
 	global encoder_count
-	#print("got here")
+	# print("got here")
 	encoder_count += 1
 
 def setup():
