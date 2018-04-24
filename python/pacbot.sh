@@ -12,7 +12,7 @@ if [ "$#" -eq 2 ]; then
 
 	# $1 and $2 are the external server ip and port respectively
 	#python3 commsModule.py "$1" "$2" &
-	sleep 7 # Give modules time to initialize
+	sleep 15 # Give modules time to initialize
 	echo "All sensor and motor modules running"
 	echo "Player module started"
 

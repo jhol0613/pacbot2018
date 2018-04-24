@@ -38,7 +38,6 @@ class UltrasonicSensorModule(rm.ProtoModule):
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
-        print("US Tick!")
         msg = UltrasonicArray()
         msg.front_center = self.pulse(FRT_CTR)
         msg.front_left = self.pulse(FRT_LFT)
@@ -48,7 +47,6 @@ class UltrasonicSensorModule(rm.ProtoModule):
 
         msg = msg.SerializeToString()
         self.write(msg, MsgType.ULTRASONIC_ARRAY)
-        print("Message sent!")
 
     def initializeSensors(self):
         GPIO.setmode(GPIO.BOARD)
@@ -57,7 +55,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
             GPIO.output(pin, False)
         for pin in ECHO_PINS:
             GPIO.setup(pin, GPIO.IN)
-        time.sleep(2)
+        time.sleep(1)
 
     def pulse(self, sensor):
         GPIO.output(TRIG_PINS[sensor], True)
