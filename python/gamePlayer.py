@@ -47,6 +47,10 @@ class GamePlayer(rm.ProtoModule):
         else:
             print("Left encoder clicks: ", self.odom_reading.left)
 
+        wheels_msg.velocity = 60
+        wheels_msg.omega = 2
+        self.serializeAndWrite(wheels_msg, MsgType.TWIST)
+
         # if self.distance:
             # print("\n" * 30)
             # print("Front Center: ", self.distance.front_center) # GOOD
