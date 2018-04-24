@@ -7,7 +7,7 @@ from messages import *
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 10
+FREQUENCY = 5
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
