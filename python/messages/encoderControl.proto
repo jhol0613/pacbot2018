@@ -9,6 +9,8 @@ message EncoderControl {
   enum Command {
   	BEGIN = 0;
   	RESET = 1;
+  	PAUSE = 2;
+  	RESUME = 3;
   }
 
 }

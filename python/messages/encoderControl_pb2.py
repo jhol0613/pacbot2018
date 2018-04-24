@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='encoderControl.proto',
   package='gamePlayer',
   syntax='proto2',
-  serialized_pb=_b('\n\x14\x65ncoderControl.proto\x12\ngamePlayer\"f\n\x0e\x45ncoderControl\x12\x33\n\x07\x63ommand\x18\x01 \x02(\x0e\x32\".gamePlayer.EncoderControl.Command\"\x1f\n\x07\x43ommand\x12\t\n\x05\x42\x45GIN\x10\x00\x12\t\n\x05RESET\x10\x01')
+  serialized_pb=_b('\n\x14\x65ncoderControl.proto\x12\ngamePlayer\"}\n\x0e\x45ncoderControl\x12\x33\n\x07\x63ommand\x18\x01 \x02(\x0e\x32\".gamePlayer.EncoderControl.Command\"6\n\x07\x43ommand\x12\t\n\x05\x42\x45GIN\x10\x00\x12\t\n\x05RESET\x10\x01\x12\t\n\x05PAUSE\x10\x02\x12\n\n\x06RESUME\x10\x03')
 )
 
 
@@ -38,11 +38,19 @@ _ENCODERCONTROL_COMMAND = _descriptor.EnumDescriptor(
       name='RESET', index=1, number=1,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAUSE', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='RESUME', index=3, number=3,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=107,
-  serialized_end=138,
+  serialized_end=161,
 )
 _sym_db.RegisterEnumDescriptor(_ENCODERCONTROL_COMMAND)
 
@@ -75,7 +83,7 @@ _ENCODERCONTROL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=36,
-  serialized_end=138,
+  serialized_end=161,
 )
 
 _ENCODERCONTROL.fields_by_name['command'].enum_type = _ENCODERCONTROL_COMMAND
