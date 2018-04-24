@@ -12,7 +12,7 @@ import sys
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 1
+FREQUENCY = 10
 
 TRIG_PINS = [7, 11, 15, 21, 23]
 ECHO_PINS = [8, 12, 16, 22, 24]
