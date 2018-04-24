@@ -33,13 +33,13 @@ class GamePlayer(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
         msg = Twist()
-        if self.distance:
-            # print("\n" * 100)
-            # print("Front Center: ", self.distance.front_center)
-            # print("Front Left: ", self.distance.front_left)
-            # print("Front Right: ", self.distance.front_right)
-            # print("Rear Left: ", self.distance.rear_left)
-            # print("Rear Right: ", self.distance.rear_right)
+        # if self.distance:
+        #     print("\n" * 100)
+        #     print("Front Center: ", self.distance.front_center)
+        #     print("Front Left: ", self.distance.front_left)
+        #     print("Front Right: ", self.distance.front_right)
+        #     print("Rear Left: ", self.distance.rear_left)
+        #     print("Rear Right: ", self.distance.rear_right)
         # if self.moving:
         #     # msg.velocity = 98
         #     # msg.omega = 2
