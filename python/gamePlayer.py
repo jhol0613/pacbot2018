@@ -38,7 +38,6 @@ class GamePlayer(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         wheels_msg = Twist()
         odom_msg = EncoderControl()
-        print("Odom reading: ", self.odom_reading.left)
         if (not self.odom_reading) or (self.odom_reading.left > 300):
             odom_msg.command = EncoderControl.RESET
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
