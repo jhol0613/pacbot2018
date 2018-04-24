@@ -12,7 +12,7 @@ import sys
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 20
+FREQUENCY = 10
 
 TIMEOUT_DISTANCE = 10 # Centimeters
 
@@ -42,11 +42,11 @@ class UltrasonicSensorModule(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # start = time.time()
         msg = UltrasonicArray()
-        msg.front_center = self.pulse(FRT_CTR)
-        msg.front_left = self.pulse(FRT_LFT)
-        msg.front_right = 0#self.pulse(FRT_RGT)
-        msg.rear_left = self.pulse(REAR_LFT)
-        msg.rear_right = 0#self.pulse(REAR_RGT)
+        msg.front_center = 0#self.pulse(FRT_CTR)
+        msg.front_left = 0#self.pulse(FRT_LFT)
+        msg.front_right = self.pulse(FRT_RGT)
+        msg.rear_left = 0#self.pulse(REAR_LFT)
+        msg.rear_right = self.pulse(REAR_RGT)
         # end = time.time()
         # print("Measurement time: ", end-start)
 
