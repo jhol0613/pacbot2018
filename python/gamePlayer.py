@@ -165,6 +165,7 @@ class GamePlayer(rm.ProtoModule):
         return True
 
     def goStraightExitCondition(self):
+        print("Front distance: ", self.distance.front_center)
         return self.distance.front_center < 4
 
     def bumpRecoverExitCondition(self):
