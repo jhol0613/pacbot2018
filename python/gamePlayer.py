@@ -46,6 +46,7 @@ class GamePlayer(rm.ProtoModule):
         moveCommand = Twist()
 
         if self.paused:
+            print("Game paused")
             moveCommand.velocity = 0
             moveCommand.omega = 0
         else:
