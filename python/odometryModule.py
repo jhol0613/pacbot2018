@@ -45,7 +45,7 @@ class OdometryModule(rm.ProtoModule):
             msg = msg.SerializeToString()
             self.write(msg, MsgType.EncoderReport)
 
-    def initializeBumpers(self):
+    def initializeEncoders(self):
         GPIO.setmode(GPIO.BOARD)
 
         GPIO.setup(LEFT_ENCODER, GPIO.IN)
