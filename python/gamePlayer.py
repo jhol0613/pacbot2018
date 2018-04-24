@@ -3,6 +3,7 @@
 import os
 import robomodules as rm
 from messages import *
+import time
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
@@ -40,7 +41,7 @@ class GamePlayer(rm.ProtoModule):
         if not self.odom_reading or self.odom_reading.left > 300:
             odom_msg.command = EncoderControl.RESET
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-            sleep(.01)
+            time.sleep(.01)
             odom_msg.command = EncoderControl.BEGIN
             self.write(odom_msg, MsgType.ENCODER_CONTROL)
         else:
