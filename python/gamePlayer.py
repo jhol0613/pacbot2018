@@ -25,7 +25,7 @@ class GamePlayer(rm.ProtoModule):
         self.odom_reading = None # EncoderReport message with encoder clicks since encoder BEGIN command sent
         self.bumper = None # Bumper message showing whether left or right was hit first
 
-        self.cursor = 0 # Marks position in action sequence
+        self.cursor = -1 # Marks position in action sequence
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
