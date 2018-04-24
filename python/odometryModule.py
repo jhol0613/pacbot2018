@@ -57,13 +57,13 @@ class OdometryModule(rm.ProtoModule):
         time.sleep(1)
 
     def clickLeft(self, channel):
-        print("adding left click")
         self.leftClicks += 1
 
     def clickRight(self, channel):
         self.rightClicks += 1
 
     def begin(self):
+        print("Encoder received begin signal")
         GPIO.add_event_detect(LEFT_ENCODER, GPIO.RISING, self.clickLeft)
         GPIO.add_event_detect(RIGHT_ENCODER, GPIO.RISING, self.clickRight)
         self.running = True
