@@ -38,8 +38,8 @@ class GamePlayer(rm.ProtoModule):
             # print("Front Center: ", self.distance.front_center)
             # print("Front Left: ", self.distance.front_left)
             # print("Front Right: ", self.distance.front_right)
-            print("Rear Left: ", self.distance.rear_left)
-        #     print("Rear Right: ", self.distance.rear_right)
+            # print("Rear Left: ", self.distance.rear_left)
+            print("Rear Right: ", self.distance.rear_right)
         # if self.moving:
         #     # msg.velocity = 98
         #     # msg.omega = 2
