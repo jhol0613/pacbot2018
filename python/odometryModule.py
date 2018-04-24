@@ -67,8 +67,8 @@ class OdometryModule(rm.ProtoModule):
 
     def begin(self):
         print("Encoder received begin signal")
-        GPIO.add_event_detect(LEFT_ENCODER, GPIO.RISING, self.clickLeft)
-        GPIO.add_event_detect(RIGHT_ENCODER, GPIO.RISING, self.clickRight)
+        GPIO.add_event_detect(LEFT_ENCODER, GPIO.BOTH, self.clickLeft)
+        GPIO.add_event_detect(RIGHT_ENCODER, GPIO.BOTH, self.clickRight)
         self.running = True
 
     def reset(self):
