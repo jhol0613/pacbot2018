@@ -61,7 +61,6 @@ class GamePlayer(rm.ProtoModule):
                 moveCommand.omega = 0
             else:
                 # Case for each potential action
-                print("Entered action switch")
                 action = ACTION_SEQUENCE[self.cursor]
                 if self.bumper:
                     moveCommand = self.bumpRecover()
