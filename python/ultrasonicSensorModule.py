@@ -42,9 +42,9 @@ class UltrasonicSensorModule(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # start = time.time()
         msg = UltrasonicArray()
-        msg.front_center = 0#self.pulse(FRT_CTR)
+        msg.front_center = self.pulse(FRT_CTR)
         msg.front_left = 0#self.pulse(FRT_LFT)
-        msg.front_right = self.pulse(FRT_RGT)
+        msg.front_right = 0#self.pulse(FRT_RGT)
         msg.rear_left = 0#self.pulse(REAR_LFT)
         msg.rear_right = 0#self.pulse(REAR_RGT)
         # end = time.time()
