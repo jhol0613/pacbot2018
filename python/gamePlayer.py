@@ -43,8 +43,8 @@ class GamePlayer(rm.ProtoModule):
             time.sleep(.01)
             odom_msg.command = EncoderControl.BEGIN
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-        else:
-            print("Right encoder clicks: ", self.odom_reading.right)
+        # else:
+        #     print("Right encoder clicks: ", self.odom_reading.right)
 
         wheels_msg.velocity = 60
         wheels_msg.omega = 2

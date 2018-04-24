@@ -47,6 +47,7 @@ class OdometryModule(rm.ProtoModule):
             # print("Right Odometer: ", self.rightClicks)
             self.write(msg, MsgType.ENCODER_REPORT)
         print("Left encoder reading: ", GPIO.input(LEFT_ENCODER))
+        print("Right encoder reading: ", GPIO.input(RIGHT_ENCODER))
 
     def initializeEncoders(self):
         GPIO.setmode(GPIO.BOARD)
