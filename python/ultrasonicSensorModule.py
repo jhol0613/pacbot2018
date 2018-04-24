@@ -46,7 +46,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
         msg.rear_right = self.pulse(REAR_RGT)
 
         msg = msg.SerializeToString()
-        self.write(msg, MsgType.UltrasonicArray)
+        self.write(msg, MsgType.ULTRASONIC_ARRAY)
 
     def initializeSensors(self):
         GPIO.setmode(GPIO.BOARD)
