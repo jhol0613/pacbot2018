@@ -44,8 +44,8 @@ class OdometryModule(rm.ProtoModule):
             msg.left = self.leftClicks
             msg.right = self.rightClicks
             msg = msg.SerializeToString()
-            print("Left Odometer: ", self.leftClicks)
-            print("Right Odometer: ", self.rightClicks)
+            # print("Left Odometer: ", self.leftClicks)
+            # print("Right Odometer: ", self.rightClicks)
             self.write(msg, MsgType.ENCODER_REPORT)
 
     def initializeEncoders(self):
@@ -57,6 +57,7 @@ class OdometryModule(rm.ProtoModule):
         time.sleep(1)
 
     def clickLeft(self, channel):
+        print("adding left click")
         self.leftClicks += 1
 
     def clickRight(self, channel):
