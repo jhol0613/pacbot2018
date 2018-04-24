@@ -44,7 +44,7 @@ class OdometryModule(rm.ProtoModule):
             msg.left = self.leftClicks
             msg.right = self.rightClicks
             msg = msg.SerializeToString()
-            self.write(msg, MsgType.EncoderReport)
+            self.write(msg, MsgType.ENCODER_REPORT)
 
     def initializeEncoders(self):
         GPIO.setmode(GPIO.BOARD)
