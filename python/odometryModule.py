@@ -56,9 +56,11 @@ class OdometryModule(rm.ProtoModule):
         time.sleep(1)
 
     def clickLeft(self, channel):
+        print("Entered left odometer callback")
         self.leftClicks += 1
 
     def clickRight(self, channel):
+        print("Entered right odometer callback")
         self.rightClicks += 1
 
     def begin(self):
