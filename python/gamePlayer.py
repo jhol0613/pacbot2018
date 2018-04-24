@@ -18,14 +18,14 @@ class GamePlayer(rm.ProtoModule):
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         
         self.paused = True # Flag that tracks whether the game is paused
-        self.action_complete = True # Flag that tells whether to continue same action or move to next
-        self.action_started = True # Flag that tracks whether an action is in progress
+        self.action_complete = False # Flag that tells whether to continue same action or move to next
+        self.action_started = False # Flag that tracks whether an action is in progress
         
         self.distance = None # UltrasonicArray message with all measured distances
         self.odom_reading = None # EncoderReport message with encoder clicks since encoder BEGIN command sent
         self.bumper = None # Bumper message showing whether left or right was hit first
 
-        self.cursor = -1 # Marks position in action sequence
+        self.cursor = 0 # Marks position in action sequence
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
