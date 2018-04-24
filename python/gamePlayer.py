@@ -26,6 +26,7 @@ class GamePlayer(rm.ProtoModule):
             elif msg.mode == LightState.PAUSED:
                 self.moving = False
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
+            print "received sensor readings"
             self.distance = msg
 
     def tick(self):
