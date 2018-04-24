@@ -36,8 +36,8 @@ class GamePlayer(rm.ProtoModule):
         if self.distance:
             print("\n" * 30)
             # print("Front Center: ", self.distance.front_center)
-            print("Front Left: ", self.distance.front_left)
-        #     print("Front Right: ", self.distance.front_right)
+            # print("Front Left: ", self.distance.front_left)
+            print("Front Right: ", self.distance.front_right)
         #     print("Rear Left: ", self.distance.rear_left)
         #     print("Rear Right: ", self.distance.rear_right)
         # if self.moving:
