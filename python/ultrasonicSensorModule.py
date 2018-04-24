@@ -46,7 +46,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
         # msg.front_left = self.pulse(FRT_LFT)
         # msg.front_right = self.pulse(FRT_RGT)
         # msg.rear_left = self.pulse(REAR_LFT)
-        msg.front_center = self.pulse(FRT_CTR)
+        msg.front_center = 0#self.pulse(FRT_CTR)
         msg.front_left = self.pulse(FRT_LFT)
         msg.front_right = self.pulse(FRT_RGT)
         msg.rear_left = self.pulse(REAR_LFT)
