@@ -36,26 +36,26 @@ class GamePlayer(rm.ProtoModule):
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
-        wheels_msg = Twist()
-        odom_msg = EncoderControl()
-        if (not self.odom_reading) or (self.odom_reading.left > 300):
-            odom_msg.command = EncoderControl.RESET
-            self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-            time.sleep(.01)
-            odom_msg.command = EncoderControl.BEGIN
-            self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-        else:
-            print("Left encoder clicks: ", self.odom_reading.left)
+        # wheels_msg = Twist()
+        # odom_msg = EncoderControl()
+        # if (not self.odom_reading) or (self.odom_reading.left > 300):
+        #     odom_msg.command = EncoderControl.RESET
+        #     self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
+        #     time.sleep(.01)
+        #     odom_msg.command = EncoderControl.BEGIN
+        #     self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
+        # else:
+        #     print("Left encoder clicks: ", self.odom_reading.left)
 
-        wheels_msg.velocity = 60
-        wheels_msg.omega = 2
-        self.serializeAndWrite(wheels_msg, MsgType.TWIST)
+        # wheels_msg.velocity = 60
+        # wheels_msg.omega = 2
+        # self.serializeAndWrite(wheels_msg, MsgType.TWIST)
 
-        # if self.distance:
-            # print("\n" * 30)
+        if self.distance:
+            print("\n" * 30)
             # print("Front Center: ", self.distance.front_center) # GOOD
             # print("Front Left: ", self.distance.front_left) # GOOD
-            # print("Front Right: ", self.distance.front_right) # BAD!!!
+            print("Front Right: ", self.distance.front_right) # BAD!!!
             # print("Rear Left: ", self.distance.rear_left) #GOOD
             # print("Rear Right: ", self.distance.rear_right) #BAD!!!
         # if self.moving:
