@@ -35,7 +35,6 @@ class BumperModule(rm.ProtoModule):
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
-        print("Tick!")
         msg = Bumper()
         
         if not self.leftSent:
