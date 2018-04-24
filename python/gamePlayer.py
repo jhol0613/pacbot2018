@@ -15,8 +15,7 @@ class GamePlayer(rm.ProtoModule):
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.moving = True
         self.distance = None
-        odom_msg.command = EncoderControl.BEGIN
-        self.write(odom_msg, MsgType.ENCODER_CONTROL)
+        self.odom_reading = None
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
@@ -38,7 +37,7 @@ class GamePlayer(rm.ProtoModule):
         # for this mock module we will print out the current value
         wheels_msg = Twist()
         odom_msg = EncoderControl()
-        if self.odom_reading.left > 300:
+        if not self.odom_reading or self.odom_reading.left > 300:
             odom_msg.command = EncoderControl.RESET
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
             sleep(.01)
