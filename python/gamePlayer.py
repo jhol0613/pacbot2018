@@ -8,7 +8,7 @@ import time
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 10
+FREQUENCY = 30
 
 ACTION_SEQUENCE = ['TURN_90_RIGHT']
 
