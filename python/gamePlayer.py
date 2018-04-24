@@ -10,7 +10,7 @@ PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 10
 
-ACTION_SEQUENCE = ['GO_STRAIGHT']
+ACTION_SEQUENCE = ['TURN_90_RIGHT']
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -54,6 +54,7 @@ class GamePlayer(rm.ProtoModule):
             if self.action_complete:
                 self.cursor += 1
                 self.action_complete = False
+                self.action_started = False
             # Stop movement if completed action_sequence
             if self.cursor >= len(ACTION_SEQUENCE):
                 print("Cursor too large for some reason")
@@ -127,7 +128,17 @@ class GamePlayer(rm.ProtoModule):
             encoder = EncoderControl()
             encoderControl.command = EncoderControl.BEGIN
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
-        return
+        if self.turn90RightExitCondition():
+            self.action_complete = True
+            encoder = EncoderControl()
+            encoderControl.command = EncoderControl.RESET
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+            twist.velocity = 0
+            twist.omega = 0
+        else:
+            twist.velocity = 0
+            twist.omega = 20
+        return twist
 
     def goStraight(self):
         twist = Twist()
@@ -160,8 +171,10 @@ class GamePlayer(rm.ProtoModule):
         return True
 
     def turn90RightExitCondition(self):
-        '''TODO'''
-        return True
+        if self.odom_reading:
+            if self.odom_reading.left > 500:
+                return True
+        return False
 
     def goStraightExitCondition(self):
         print("Front distance: ", self.distance.front_center)
