@@ -31,7 +31,6 @@ class OdometryModule(rm.ProtoModule):
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
         if msg_type == MsgType.ENCODER_CONTROL:
-            print("Command received!!")
             if msg.command == EncoderControl.BEGIN:
                 self.begin()
             elif msg.command == EncoderControl.RESET:

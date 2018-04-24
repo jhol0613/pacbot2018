@@ -12,7 +12,7 @@ FREQUENCY = 10
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
-        self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY]
+        self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY, MsgType.ENCODER_REPORT]
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.moving = True
         self.distance = None
