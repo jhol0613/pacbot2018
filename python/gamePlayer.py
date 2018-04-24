@@ -8,7 +8,7 @@ import time
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 30
+FREQUENCY = 40
 
 ACTION_SEQUENCE = ['TURN_90_RIGHT']
 
@@ -43,6 +43,7 @@ class GamePlayer(rm.ProtoModule):
             self.bumper = msg
 
     def tick(self):
+        start = time.time()
         moveCommand = Twist()
 
         if self.paused:
@@ -75,6 +76,8 @@ class GamePlayer(rm.ProtoModule):
                     moveCommand = self.initialTurn()
 
         self.write(moveCommand.SerializeToString(), MsgType.TWIST)
+
+        print("Tick time: ", time.time() - start)
 
         # this function will get called in a loop with FREQUENCY frequency
         # wheels_msg = Twist()
@@ -109,7 +112,7 @@ class GamePlayer(rm.ProtoModule):
         #     # msg.omega = 0
         # # msg = msg.SerializeToString()
         # # self.write(msg, MsgType.TWIST)
-        return
+        
 
 
     # def serializeAndWrite(self, msg, msg_type):
@@ -174,7 +177,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.left > 230:
+            if self.odom_reading.left > 240:
                 return True
         return False
 
