@@ -137,7 +137,7 @@ class GamePlayer(rm.ProtoModule):
             twist.omega = 0
         else:
             twist.velocity = 0
-            twist.omega = 20
+            twist.omega = 40
         return twist
 
     def goStraight(self):
