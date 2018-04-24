@@ -39,7 +39,6 @@ class GamePlayer(rm.ProtoModule):
         wheels_msg = Twist()
         odom_msg = EncoderControl()
         if (not self.odom_reading) or (self.odom_reading.left > 300):
-            print("Sending encoder command!")
             odom_msg.command = EncoderControl.RESET
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
             time.sleep(.01)

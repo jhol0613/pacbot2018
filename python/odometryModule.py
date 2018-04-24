@@ -44,6 +44,8 @@ class OdometryModule(rm.ProtoModule):
             msg.left = self.leftClicks
             msg.right = self.rightClicks
             msg = msg.SerializeToString()
+            print("Left Odometer: ", self.leftClicks)
+            print("Right Odometer: ", self.rightClicks)
             self.write(msg, MsgType.ENCODER_REPORT)
 
     def initializeEncoders(self):
