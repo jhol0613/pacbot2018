@@ -80,7 +80,7 @@ def destroy(*args):
 def main():
     signal.signal(signal.SIGINT, destroy)
     signal.signal(signal.SIGTERM, destroy)
-    module = BumperModule(ADDRESS, PORT)
+    module = OdometryModule(ADDRESS, PORT)
     module.run()
 
 if __name__ == "__main__":
