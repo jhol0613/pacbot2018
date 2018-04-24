@@ -15,6 +15,8 @@ class GamePlayer(rm.ProtoModule):
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.moving = True
         self.distance = None
+        odom_msg.command = EncoderControl.BEGIN
+        self.write(odom_msg, MsgType.ENCODER_CONTROL)
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
