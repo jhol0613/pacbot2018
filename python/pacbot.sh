@@ -9,6 +9,7 @@ if [ "$#" -eq 2 ]; then
 	python3 motorModule.py &
 	python3 bumperModule.py &
 	python3 ultrasonicSensorModule.py &
+	python3 odometryModule.py &
 
 	# $1 and $2 are the external server ip and port respectively
 	#python3 commsModule.py "$1" "$2" &

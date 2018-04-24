@@ -43,7 +43,7 @@ class GamePlayer(rm.ProtoModule):
             self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
             time.sleep(.01)
             odom_msg.command = EncoderControl.BEGIN
-            self.write(odom_msg, MsgType.ENCODER_CONTROL)
+            self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
         else:
             print("Left encoder clicks: ", self.odom_reading.left)
 
