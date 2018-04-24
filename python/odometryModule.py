@@ -62,8 +62,8 @@ class OdometryModule(rm.ProtoModule):
         self.rightClicks += 1
 
     def begin(self):
-        GPIO.add_event_detect(LEFT_ENCODER, GPIO.BOTH, clickLeft)
-        GPIO.add_event_detect(RIGHT_ENCODER, GPIO.BOTH, clickRight)
+        GPIO.add_event_detect(LEFT_ENCODER, GPIO.BOTH, self.clickLeft)
+        GPIO.add_event_detect(RIGHT_ENCODER, GPIO.BOTH, self.clickRight)
         self.running = True
 
     def reset(self):
