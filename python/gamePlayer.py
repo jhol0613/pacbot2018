@@ -10,9 +10,10 @@ PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 40
 
-ACTION_SEQUENCE = ['GO_STRAIGHT', 'TURN_90_RIGHT']
+ACTION_SEQUENCE = ['GO_STRAIGHT', 'PAUSE', 'TURN_90_RIGHT']
 
 ROTATIONAL_CORRECTION_CONSTANT = 3
+PAUSE_TIME = 1.0
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -28,6 +29,8 @@ class GamePlayer(rm.ProtoModule):
         self.bumper = None # Bumper message showing whether left or right was hit first
 
         self.cursor = 0 # Marks position in action sequence
+
+        self.timer = 0 # Can be used by subroutines that use time as an exit condition
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
@@ -60,7 +63,6 @@ class GamePlayer(rm.ProtoModule):
                 self.action_started = False
             # Stop movement if completed action_sequence
             if self.cursor >= len(ACTION_SEQUENCE):
-                print("Cursor too large for some reason")
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
             else:
@@ -172,6 +174,17 @@ class GamePlayer(rm.ProtoModule):
         '''TODO'''
         return
 
+    def pause(self):
+        twist = Twist()
+        if not self.action_started:
+            self.action_started = True
+            self.timer = time.time()
+        if self.pauseExitCondition():
+            self.action_complete = True
+        twist.velocity = 0
+        twist.omega = 0
+        return twist
+
     # Checks specified conditions and returns a boolean stating whether
     # a subroutine should end
     def turn90LeftExitCondition(self):
@@ -198,6 +211,10 @@ class GamePlayer(rm.ProtoModule):
     def initialTurnExitCondition(self):
         '''TODO'''
         return True
+
+    def pauseExitCondition(self):
+        return (time.time() - self.timer) > PAUSE_TIME
+
 
 def main():
     module = GamePlayer(ADDRESS, PORT)
