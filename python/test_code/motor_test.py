@@ -1,11 +1,11 @@
 import RPi.GPIO as IO
 import time
 
-PWM_PIN = 33
-CTRL_1 = 35
-CTRL_2 = 37
+PWM_PIN = 32
+CTRL_1 = 36
+CTRL_2 = 38
 
-ENCODER = 31
+ENCODER = 29
 
 FORWARD = 0
 BACKWARD = 1
