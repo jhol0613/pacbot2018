@@ -46,8 +46,6 @@ class OdometryModule(rm.ProtoModule):
             # print("Left Odometer: ", self.leftClicks)
             # print("Right Odometer: ", self.rightClicks)
             self.write(msg, MsgType.ENCODER_REPORT)
-        print("Left encoder reading: ", GPIO.input(LEFT_ENCODER))
-        print("Right encoder reading: ", GPIO.input(RIGHT_ENCODER))
 
     def initializeEncoders(self):
         GPIO.setmode(GPIO.BOARD)
@@ -58,15 +56,12 @@ class OdometryModule(rm.ProtoModule):
         time.sleep(1)
 
     def clickLeft(self, channel):
-        print("Entered left odometer callback")
         self.leftClicks += 1
 
     def clickRight(self, channel):
-        print("Entered right odometer callback")
         self.rightClicks += 1
 
     def begin(self):
-        print("Encoder received begin signal")
         GPIO.add_event_detect(LEFT_ENCODER, GPIO.BOTH, self.clickLeft)
         GPIO.add_event_detect(RIGHT_ENCODER, GPIO.BOTH, self.clickRight)
         self.running = True
