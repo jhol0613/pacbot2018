@@ -25,7 +25,7 @@ def setup():
 	IO.output(CTRL_2, False)
 
 	IO.setup(ENCODER, IO.IN)
-	IO.add_event_detect(ENCODER, IO.BOTH, callback=encoderCallback)
+	IO.add_event_detect(ENCODER, IO.BOTH, self.encoderCallback)
 
 	IO.setup(PWM_PIN, IO.OUT)
 	global PWM
