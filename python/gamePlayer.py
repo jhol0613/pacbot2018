@@ -126,8 +126,6 @@ class GamePlayer(rm.ProtoModule):
         return
 
     def goStraight(self):
-        '''TODO'''
-        print("Entered goStraight")
         twist = Twist()
         if not self.action_started:
             self.action_started = True
@@ -137,7 +135,6 @@ class GamePlayer(rm.ProtoModule):
             twist.velocity = 0
             twist.omega = 0
         else:
-            print("Ought to be working...")
             twist.velocity = 60
             twist.omega = 2
         return twist
@@ -163,8 +160,7 @@ class GamePlayer(rm.ProtoModule):
         return True
 
     def goStraightExitCondition(self):
-        '''TODO'''
-        return False
+        return self.distance.front_center < 4
 
     def bumpRecoverExitCondition(self):
         '''TODO'''
