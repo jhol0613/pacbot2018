@@ -15,9 +15,9 @@ LOCAL_FREQUENCY = 30
 class PacbotServerClient(rm.ProtoModule):
     def __init__(self, addr, port, loop):
         self.subscriptions = [MsgType.LIGHT_STATE]
-        print("Address: ", addr)
-        print("Port: ", port)
-        print("Loop: ", loop)
+        # print("Address: ", addr)
+        # print("Port: ", port)
+        # print("Loop: ", loop)
         super().__init__(addr, port, message_buffers, MsgType, SERVER_FREQUENCY, self.subscriptions, loop)
         self.state = None
         self.ticks = 0

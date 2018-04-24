@@ -26,7 +26,7 @@ class GamePlayer(rm.ProtoModule):
             elif msg.mode == LightState.PAUSED:
                 self.moving = False
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
-            print("received sensor readings")
+            #print("received sensor readings")
             self.distance = msg
 
     def tick(self):
@@ -34,6 +34,7 @@ class GamePlayer(rm.ProtoModule):
         # for this mock module we will print out the current value
         msg = Twist()
         if self.distance:
+            print("\n" * 100)
             print("Front Center: ", self.distance.front_center)
             print("Front Left: ", self.distance.front_left)
             print("Front Right: ", self.distance.front_right)
