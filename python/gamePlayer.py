@@ -122,7 +122,12 @@ class GamePlayer(rm.ProtoModule):
         return
 
     def turn90Right(self):
-        '''TODO'''
+        twist = Twist()
+        if not self.action_started:
+            self.action_started = True
+            encoder = EncoderControl()
+            encoderControl.command = EncoderControl.BEGIN
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
         return
 
     def goStraight(self):
