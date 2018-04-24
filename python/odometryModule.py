@@ -20,6 +20,7 @@ RIGHT_ENCODER = 31
 class OdometryModule(rm.ProtoModule):
     def __init__(self, addr, port):
         print("Initializing encoders...")
+        self.subscriptions = [MsgType.ENCODER_CONTROL]
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY)
         self.initializeEncoders()
         self.leftClicks = 0
@@ -29,8 +30,7 @@ class OdometryModule(rm.ProtoModule):
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
-        # This module only sends data, so we ignore incoming messages
-        if msg_type == MsgType.EncoderControl:
+        if msg_type == MsgType.ENCODER_CONTROL:
             if msg.command == EncoderControl.BEGIN:
                 self.begin()
             elif msg.command == EncoderControl.RESET:

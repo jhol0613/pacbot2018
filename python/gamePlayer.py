@@ -28,18 +28,30 @@ class GamePlayer(rm.ProtoModule):
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
             #print("received sensor readings")
             self.distance = msg
+        elif msg_type == MsgType.ENCODER_REPORT:
+            self.odom_reading = msg
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
-        msg = Twist()
-        if self.distance:
-            print("\n" * 30)
+        wheels_msg = Twist()
+        odom_msg = EncoderControl()
+        if self.odom_reading.left > 300:
+            odom_msg.command = EncoderControl.RESET
+            self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
+            sleep(.01)
+            odom_msg.command = EncoderControl.BEGIN
+            self.write(odom_msg, MsgType.ENCODER_CONTROL)
+        else:
+            print("Left encoder clicks: ", self.odom_reading.left)
+
+        # if self.distance:
+            # print("\n" * 30)
             # print("Front Center: ", self.distance.front_center) # GOOD
             # print("Front Left: ", self.distance.front_left) # GOOD
-            print("Front Right: ", self.distance.front_right) # BAD!!!
+            # print("Front Right: ", self.distance.front_right) # BAD!!!
             # print("Rear Left: ", self.distance.rear_left) #GOOD
-            print("Rear Right: ", self.distance.rear_right) #BAD!!!
+            # print("Rear Right: ", self.distance.rear_right) #BAD!!!
         # if self.moving:
         #     # msg.velocity = 98
         #     # msg.omega = 2
@@ -50,6 +62,10 @@ class GamePlayer(rm.ProtoModule):
         #     # msg.omega = 0
         # # msg = msg.SerializeToString()
         # # self.write(msg, MsgType.TWIST)
+
+    def serializeAndWrite(self, msg, msg_type):
+        msg = msg.SerializeToString()
+        self.write(msg, msg_type)
 
 def main():
     module = GamePlayer(ADDRESS, PORT)
