@@ -10,9 +10,10 @@ ENCODER = 29
 FORWARD = 0
 BACKWARD = 1
 
-# encoder_count = 0
+encoder_count = 0
 
 def encoderCallback(channel):
+	global encoder_count
 	print("got here")
 	encoder_count += 1
 
