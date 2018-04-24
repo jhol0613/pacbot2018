@@ -7,7 +7,7 @@ from messages import *
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 30
+FREQUENCY = 10
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -33,9 +33,9 @@ class GamePlayer(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         # for this mock module we will print out the current value
         msg = Twist()
-        # if self.distance:
-        #     print("\n" * 100)
-        #     print("Front Center: ", self.distance.front_center)
+        if self.distance:
+            print("\n" * 30)
+            print("Front Center: ", self.distance.front_center)
         #     print("Front Left: ", self.distance.front_left)
         #     print("Front Right: ", self.distance.front_right)
         #     print("Rear Left: ", self.distance.rear_left)
