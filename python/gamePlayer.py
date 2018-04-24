@@ -12,6 +12,8 @@ FREQUENCY = 40
 
 ACTION_SEQUENCE = ['TURN_90_RIGHT']
 
+ROTATIONAL_CORRECTION_CONSTANT = 0.5
+
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
         self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY, MsgType.ENCODER_REPORT]
@@ -122,6 +124,8 @@ class GamePlayer(rm.ProtoModule):
     # List of subroutines that the pacbot can enter
     def turn90Left(self):
         '''TODO'''
+
+        # Remember to add the opposite correction from turn90right!!!
         return
 
     def turn90Right(self):
@@ -140,6 +144,7 @@ class GamePlayer(rm.ProtoModule):
             twist.omega = 0
         else:
             twist.velocity = 0
+            twist.velocity += (self.odom_reading.right - self.odom_reading.left) * int(ROTATIONAL_CORRECTION_CONSTANT)
             twist.omega = 40
         return twist
 
@@ -177,7 +182,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.left > 240:
+            if self.odom_reading.right > 240:
                 return True
         return False
 

@@ -42,7 +42,10 @@ class MotorModule(rm.ProtoModule):
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
         if msg_type == MsgType.TWIST:
-            self.processTwist(msg.velocity, msg.omega)
+            if msg.correction:
+                self.processTwist(msg.velocity, msg.omega, msg.correction)
+            else:
+                self.processTwist(msg.velocity, msg.omega, 0)
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
@@ -91,21 +94,25 @@ class MotorModule(rm.ProtoModule):
 
         leftSpeed += rotSpeed
         rightSpeed -= rotSpeed
-
-        if leftSpeed > 100 or leftSpeed < -100 or rightSpeed > 100 or rightSpeed < -100:
-            print("Exceeded speed limits!")
+            
+        
+        if leftSpeed >= 0:
+            self.setDirection(LEFT_MOTOR, FORWARD)
         else:
-            if leftSpeed >= 0:
-                self.setDirection(LEFT_MOTOR, FORWARD)
-            else:
-                self.setDirection(LEFT_MOTOR, BACKWARD)
-            if rightSpeed >= 0:
-                self.setDirection(RIGHT_MOTOR, FORWARD)
-            else:
-                self.setDirection(RIGHT_MOTOR, BACKWARD)
-            # print("Left speed: ", leftSpeed)
-            # print("Right speed: ", rightSpeed)
+            self.setDirection(LEFT_MOTOR, BACKWARD)
+        if rightSpeed >= 0:
+            self.setDirection(RIGHT_MOTOR, FORWARD)
+        else:
+            self.setDirection(RIGHT_MOTOR, BACKWARD)
+
+        # If speeds beyond limits, set to limits. Otherwise set to calculated speed
+        if abs(leftSpeed) > 100:
+            self.left_pwm.ChangeDutyCycle(100)
+        else:
             self.left_pwm.ChangeDutyCycle(abs(leftSpeed))
+        if abs(rightSpeed) > 100:
+            self.right_pwm.ChangeDutyCycle(100)
+        else:
             self.right_pwm.ChangeDutyCycle(abs(rightSpeed))
 
 def destroy(*args):
