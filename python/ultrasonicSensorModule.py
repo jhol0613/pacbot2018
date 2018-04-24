@@ -14,7 +14,7 @@ PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 1
 
-TIMEOUT_DISTANCE = 10 # Centimeters
+TIMEOUT_DISTANCE = 5 # Centimeters
 
 TRIG_PINS = [7, 11, 15, 21, 23]
 ECHO_PINS = [8, 12, 16, 22, 24]
