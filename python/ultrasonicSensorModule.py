@@ -38,7 +38,7 @@ class UltrasonicSensorModule(rm.ProtoModule):
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
-        print("Tick!")
+        #print("Tick!")
         msg = UltrasonicArray()
         msg.front_center = self.pulse(FRT_CTR)
         msg.front_left = self.pulse(FRT_LFT)

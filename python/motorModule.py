@@ -46,7 +46,6 @@ class MotorModule(rm.ProtoModule):
 
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
-        print("tick")
         return
 
     def initializeMotors(self):
