@@ -46,11 +46,11 @@ class UltrasonicSensorModule(rm.ProtoModule):
         # msg.front_left = self.pulse(FRT_LFT)
         # msg.front_right = self.pulse(FRT_RGT)
         # msg.rear_left = self.pulse(REAR_LFT)
-        msg.front_center = 0#self.pulse(FRT_CTR)
-        msg.front_left = 0#self.pulse(FRT_LFT)
+        msg.front_center = self.pulse(FRT_CTR)
+        msg.front_left = self.pulse(FRT_LFT)
         msg.front_right = self.pulse(FRT_RGT)
         msg.rear_left = self.pulse(REAR_LFT)
-        msg.rear_right = 0#self.pulse(REAR_RGT)
+        msg.rear_right = self.pulse(REAR_RGT)
 
         msg = msg.SerializeToString()
         self.write(msg, MsgType.ULTRASONIC_ARRAY)
@@ -78,6 +78,26 @@ class UltrasonicSensorModule(rm.ProtoModule):
 
         distance = round(distance, 2)
         return distance
+
+    # Pulses 2 sensors at once to save time
+    # def pulse2(self, sensor1, sensor2):
+    #     GPIO.output(TRIG_PINS[sensor1], True)
+    #     time.sleep(0.00001)
+    #     GPIO.output(TRIG_PINS[sensor1], False)
+
+    #     GPIO.output(TRIG_PINS[sensor2], True)
+    #     time.sleep(0.00001)
+    #     GPIO.output(TRIG_PINS[sensor2], False)
+
+    #     while GPIO.input(ECHO_PINS[sensor])==0:
+    #         pulse_start = time.time()
+    #     while GPIO.input(ECHO_PINS[sensor])==1:
+    #         distance = (time.time() - pulse_start) * 17150
+    #         if distance > TIMEOUT_DISTANCE:
+    #             return TIMEOUT_DISTANCE
+
+    #     distance = round(distance, 2)
+    #     return distance
 
 def destroy(*args):
     GPIO.cleanup()
