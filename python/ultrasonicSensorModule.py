@@ -12,7 +12,7 @@ import sys
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 2
+FREQUENCY = 1
 
 TRIG_PINS = [7, 11, 15, 21, 23]
 ECHO_PINS = [8, 12, 16, 22, 24]
@@ -41,10 +41,10 @@ class UltrasonicSensorModule(rm.ProtoModule):
         #print("Tick!")
         print("Tick!")
         msg = UltrasonicArray()
-        msg.front_center = self.pulse(FRT_CTR)
-        msg.front_left = self.pulse(FRT_LFT)
-        msg.front_right = self.pulse(FRT_RGT)
-        msg.rear_left = self.pulse(REAR_LFT)
+        # msg.front_center = self.pulse(FRT_CTR)
+        # msg.front_left = self.pulse(FRT_LFT)
+        # msg.front_right = self.pulse(FRT_RGT)
+        # msg.rear_left = self.pulse(REAR_LFT)
         msg.rear_right = self.pulse(REAR_RGT)
 
         msg = msg.SerializeToString()
