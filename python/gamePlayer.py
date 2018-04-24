@@ -35,10 +35,10 @@ class GamePlayer(rm.ProtoModule):
         msg = Twist()
         if self.distance:
             print("\n" * 30)
-            # print("Front Center: ", self.distance.front_center)
+            print("Front Center: ", self.distance.front_center)
             # print("Front Left: ", self.distance.front_left) # GOOD
             # print("Front Right: ", self.distance.front_right) # BAD!!!
-            print("Rear Left: ", self.distance.rear_left) #GOOD
+            # print("Rear Left: ", self.distance.rear_left) #GOOD
             # print("Rear Right: ", self.distance.rear_right) #BAD!!!
         # if self.moving:
         #     # msg.velocity = 98
