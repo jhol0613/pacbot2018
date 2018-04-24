@@ -21,7 +21,7 @@ class OdometryModule(rm.ProtoModule):
     def __init__(self, addr, port):
         print("Initializing encoders...")
         self.subscriptions = [MsgType.ENCODER_CONTROL]
-        super().__init__(addr, port, message_buffers, MsgType, FREQUENCY)
+        super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
         self.initializeEncoders()
         self.leftClicks = 0
         self.rightClicks = 0
