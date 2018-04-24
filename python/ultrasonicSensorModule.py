@@ -14,6 +14,8 @@ PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 10
 
+TIMEOUT_DISTANCE = 10 # Centimeters
+
 TRIG_PINS = [7, 11, 15, 21, 23]
 ECHO_PINS = [8, 12, 16, 22, 24]
 
@@ -39,16 +41,15 @@ class UltrasonicSensorModule(rm.ProtoModule):
     def tick(self):
         # this function will get called in a loop with FREQUENCY frequency
         #print("Tick!")
-        print("Tick!")
         msg = UltrasonicArray()
         # msg.front_center = self.pulse(FRT_CTR)
         # msg.front_left = self.pulse(FRT_LFT)
         # msg.front_right = self.pulse(FRT_RGT)
         # msg.rear_left = self.pulse(REAR_LFT)
         msg.front_center = 0
-        msg.front_right = 0
         msg.front_left = 0
-        msg.rear_left = 0
+        msg.front_right = 0
+        msg.rear_left = self.pulse(REAR_LFT)
         msg.rear_right = self.pulse(REAR_RGT)
 
         msg = msg.SerializeToString()
@@ -71,10 +72,10 @@ class UltrasonicSensorModule(rm.ProtoModule):
         while GPIO.input(ECHO_PINS[sensor])==0:
             pulse_start = time.time()
         while GPIO.input(ECHO_PINS[sensor])==1:
-            pulse_end = time.time()
+            distance = (time.time() - pulse_start) * 17150
+            if distance > TIMEOUT_DISTANCE:
+                return TIMEOUT_DISTANCE
 
-        pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17150
         distance = round(distance, 2)
         return distance
 
