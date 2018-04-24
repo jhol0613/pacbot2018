@@ -171,9 +171,9 @@ class GamePlayer(rm.ProtoModule):
         return True
 
     def turn90RightExitCondition(self):
-        print("Left odom reading: ", self.odom_reading.left)
-        print("Right odom reading: ", self.odom_reading.right)
         if self.odom_reading:
+            print("Left odom reading: ", self.odom_reading.left)
+            print("Right odom reading: ", self.odom_reading.right)
             if self.odom_reading.left > 500:
                 return True
         return False
