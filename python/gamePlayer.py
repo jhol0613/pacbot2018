@@ -56,10 +56,12 @@ class GamePlayer(rm.ProtoModule):
                 self.action_complete = False
             # Stop movement if completed action_sequence
             if self.cursor >= len(ACTION_SEQUENCE):
+                print("Cursor too large for some reason")
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
             else:
                 # Case for each potential action
+                print("Entered action switch")
                 action = ACTION_SEQUENCE[self.cursor]
                 if self.bumper:
                     moveCommand = self.bumpRecover()
@@ -125,6 +127,7 @@ class GamePlayer(rm.ProtoModule):
 
     def goStraight(self):
         '''TODO'''
+        print("Entered goStraight")
         twist = Twist()
         if not self.action_started:
             self.action_started = True
@@ -134,6 +137,7 @@ class GamePlayer(rm.ProtoModule):
             twist.velocity = 0
             twist.omega = 0
         else:
+            print("Ought to be working...")
             twist.velocity = 60
             twist.omega = 2
         return twist
