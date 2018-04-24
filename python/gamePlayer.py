@@ -174,7 +174,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.left > 250:
+            if self.odom_reading.left > 230:
                 return True
         return False
 
