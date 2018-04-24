@@ -12,7 +12,7 @@ FREQUENCY = 40
 
 ACTION_SEQUENCE = ['TURN_90_RIGHT']
 
-ROTATIONAL_CORRECTION_CONSTANT = 0.5
+ROTATIONAL_CORRECTION_CONSTANT = 2
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
