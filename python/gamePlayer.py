@@ -33,6 +33,10 @@ SENSOR_TARGET = 7.0 # target value that sensors try to return to
 P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
 D_MULTIPLIER = 6.0 # this is multiplied by calculated direction correction factor to determine omega
 
+# Constants for initial move (odometered forward motion)
+ODOMETRY_INITIAL_MOVE_THRESHOLD = 260 # odometer cutoff for finishing initial forward motion
+FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
+
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
         self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY, MsgType.ENCODER_REPORT]
@@ -241,9 +245,27 @@ class GamePlayer(rm.ProtoModule):
         return twist
 
     # May require two separate parts
-    def initialTurn(self):
-        '''TODO'''
-        return
+    def initialMove(self):
+        twist = Twist()
+        if not self.action_started:
+            self.action_started = True
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.BEGIN
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+        if self.initialMoveExitCondition():
+            self.action_complete = True
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.RESET
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+            twist.velocity = 0
+            twist.omega = 0
+        else:
+            twist.velocity = 0
+            twist.omega = 0
+            if self.odom_reading:
+                twist.velocity = FORWARD_SPEED
+                twist.omega = FORWARD_OMEGA_CORRECTION + int((self.odom_reading.right - self.odom_reading.left) * FORWARD_CORRECTION_CONSTANT)
+        return twist
 
     def pause(self):
 
@@ -280,13 +302,13 @@ class GamePlayer(rm.ProtoModule):
     def goStraightExitCondition(self):
         # print("Front distance: ", self.distance.front_center)
         # return False
-        return False#self.distance.front_center < FRONT_SENSOR_THRESHOLD
+        return self.distance.front_center < FRONT_SENSOR_THRESHOLD
 
     def bumpRecoverExitCondition(self):
         '''TODO'''
         return True
 
-    def initialTurnExitCondition(self):
+    def initialMoveExitCondition(self):
         '''TODO'''
         return True
 
