@@ -86,10 +86,10 @@ class GamePlayer(rm.ProtoModule):
                 '''......................TEMPORARY TEST CODE START....................'''
 
                 print('\n' * 20)
-                print("Front Left: ", self.distance.front_left)
-                print("Front Right: ", self.distance.front_right)
-                print("Rear Left: ", self.distance.rear_left)
-                print("Rear Right: ", self.distance.rear_right)
+                print("Front Left: ", round(self.distance.front_left, 2))
+                print("Front Right: ", round(self.distance.front_right, 2))
+                print("Rear Left: ", round(self.distance.rear_left, 2))
+                print("Rear Right: ", round(self.distance.rear_right,2))
 
                 '''......................TEMPORARY TEST CODE END......................'''
 
