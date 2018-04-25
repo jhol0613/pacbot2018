@@ -21,7 +21,7 @@ ODOMETRY_LEFT_TURN_THRESHOLD = 230 # odometer cutoff for finishing left turn
 ODOMETRY_RIGHT_TURN_THRESHOLD = 230 # odometer cutoff for finishing right turn
 
 # Constants for pause
-PAUSE_TIME = 0.5 # length of a typical pause
+PAUSE_TIME = 1.0 # length of a typical pause
 
 # Constants for straight motion
 FORWARD_SPEED = 40 # nominal forward movement speed
