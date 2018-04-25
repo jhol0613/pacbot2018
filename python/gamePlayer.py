@@ -117,8 +117,8 @@ class GamePlayer(rm.ProtoModule):
                     # print("Rear Right: ", round(self.distance.rear_right,2))
 
                     # '''......................TEMPORARY TEST CODE END......................'''
-                elif action == 'INITIAL_TURN':
-                    moveCommand = self.initialTurn()
+                elif action == 'INITIAL_MOVE':
+                    moveCommand = self.initialMove()
                 elif action == 'PAUSE':
                     moveCommand = self.pause()
 
