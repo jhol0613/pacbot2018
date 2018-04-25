@@ -24,7 +24,7 @@ PAUSE_TIME = 0.5 # length of a typical pause
 # Constants for straight motion
 FORWARD_SPEED = 30 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 2 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD = 5 # minimum sensor value before stopping forward motion
+FRONT_SENSOR_THRESHOLD = 6 # minimum sensor value before stopping forward motion
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):

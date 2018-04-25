@@ -40,8 +40,7 @@ class BumperModule(rm.ProtoModule):
         if not self.leftSent:
             if self.leftFlag:
                 msg.side = Bumper.LEFT
-                msg = msg.SerializeToString()
-                self.write(msg, MsgType.BUMPER)
+                self.write(msg.SerializeToString(), MsgType.BUMPER)
                 self.leftSent = True
         else:
             if not self.leftFlag:
@@ -50,8 +49,7 @@ class BumperModule(rm.ProtoModule):
         if not self.rightSent:
             if self.rightFlag:
                 msg.side = Bumper.RIGHT
-                msg = msg.SerializeToString()
-                self.write(msg, MsgType.BUMPER)
+                self.write(msg.SerializeToString(), MsgType.BUMPER)
                 self.rightSent = True
         else:
             if not self.rightFlag:
