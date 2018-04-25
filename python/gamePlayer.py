@@ -12,8 +12,18 @@ FREQUENCY = 40
 
 ACTION_SEQUENCE = ['GO_STRAIGHT', 'PAUSE', 'TURN_90_RIGHT']
 
-ROTATIONAL_CORRECTION_CONSTANT = 3
-PAUSE_TIME = 1.0
+# Constants for rotations
+ROTATIONAL_CORRECTION_CONSTANT = 2 # adjustment factor for unequal turning
+ODOMETRY_TURN_THRESHOLD = 240 # odometer cutoff for finishing turn
+ROTATIONAL_SPEED = 40 # speed at which rotations occur
+
+# Constants for pause
+PAUSE_TIME = 1.0 # length of a typical pause
+
+# Constants for straight motion
+FORWARD_SPEED = 30 # nominal forward movement speed
+FORWARD_OMEGA_CORRECTION = 2 # correction for unequal friction
+FRONT_SENSOR_THRESHOLD = 4 # minimum sensor value before stopping forward motion
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -149,7 +159,7 @@ class GamePlayer(rm.ProtoModule):
             twist.velocity = 0
             twist.omega = 0
             if self.odom_reading:
-                twist.velocity += (self.odom_reading.right - self.odom_reading.left) * int(ROTATIONAL_CORRECTION_CONSTANT)
+                twist.velocity += int((self.odom_reading.right - self.odom_reading.left) * ROTATIONAL_CORRECTION_CONSTANT)
                 twist.omega = 40
         return twist
 
@@ -162,8 +172,8 @@ class GamePlayer(rm.ProtoModule):
             twist.velocity = 0
             twist.omega = 0
         else:
-            twist.velocity = 60
-            twist.omega = 2
+            twist.velocity = FORWARD_SPEED
+            twist.omega = FORWARD_OMEGA_CORRECTION
         return twist
 
     # This is the only subroutine that can interrupt another
@@ -199,14 +209,14 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.right > 240:
+            if self.odom_reading.right > ODOMETRY_TURN_THRESHOLD:
                 return True
         return False
 
     def goStraightExitCondition(self):
         print("Front distance: ", self.distance.front_center)
         # return False
-        return self.distance.front_center < 4
+        return self.distance.front_center < FRONT_SENSOR_THRESHOLD
 
     def bumpRecoverExitCondition(self):
         '''TODO'''
