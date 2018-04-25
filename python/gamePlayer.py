@@ -82,6 +82,17 @@ class GamePlayer(rm.ProtoModule):
             if self.cursor >= len(self.action_sequence):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
+
+'''......................TEMPORARY TEST CODE START....................'''
+
+                print("\n" * 20)
+                print("Front Left: ", self.distance.front_left)
+                print("Front Right: ", self.distance.front_right)
+                print("Rear Left: ", self.distance.rear_left)
+                print("Rear Right: ", self.distance.rear_right)
+
+'''......................TEMPORARY TEST CODE END......................'''
+
             else:
                 # Case for each potential action
                 action = self.action_sequence[self.cursor]
@@ -102,46 +113,6 @@ class GamePlayer(rm.ProtoModule):
         self.write(moveCommand, MsgType.TWIST)
 
         # print("Tick time: ", time.time() - start)
-
-        # this function will get called in a loop with FREQUENCY frequency
-        # wheels_msg = Twist()
-        # odom_msg = EncoderControl()
-        # if (not self.odom_reading) or (self.odom_reading.left > 300):
-        #     odom_msg.command = EncoderControl.RESET
-        #     self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-        #     time.sleep(.01)
-        #     odom_msg.command = EncoderControl.BEGIN
-        #     self.serializeAndWrite(odom_msg, MsgType.ENCODER_CONTROL)
-        # # else:
-        # #     print("Right encoder clicks: ", self.odom_reading.right)
-
-        # wheels_msg.velocity = 20
-        # wheels_msg.omega = 2
-        # self.serializeAndWrite(wheels_msg, MsgType.TWIST)
-
-        # if self.distance:
-        #     print("\n" * 30)
-            # print("Front Center: ", self.distance.front_center) # GOOD
-            # print("Front Left: ", self.distance.front_left) # GOOD
-            # print("Front Right: ", self.distance.front_right) # BAD!!!
-            # print("Rear Left: ", self.distance.rear_left) #GOOD
-            # print("Rear Right: ", self.distance.rear_right) #BAD!!!
-        # if self.moving:
-        #     # msg.velocity = 98
-        #     # msg.omega = 2
-        #     print("Currently moving")
-        # else:
-        #     print("Currently stopped")
-        #     # msg.velocity = 0
-        #     # msg.omega = 0
-        # # msg = msg.SerializeToString()
-        # # self.write(msg, MsgType.TWIST)
-        
-
-
-    # def serializeAndWrite(self, msg, msg_type):
-    #     msg = msg.SerializeToString()
-    #     self.write(msg, msg_type)
 
     # List of subroutines that the pacbot can enter
     def turn90Left(self):
@@ -190,9 +161,13 @@ class GamePlayer(rm.ProtoModule):
         return twist
 
     def goStraight(self):
+
         twist = Twist()
         if not self.action_started:
             self.action_started = True
+
+        if 
+
         if self.goStraightExitCondition():
             self.action_complete = True
             twist.velocity = 0
