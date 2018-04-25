@@ -29,7 +29,7 @@ FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 2.0 # this is multiplied by calculated correction factor to determine omega
+P_MULTIPLIER = 4.0 # this is multiplied by calculated correction factor to determine omega
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
