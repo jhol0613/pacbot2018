@@ -84,15 +84,15 @@ class GamePlayer(rm.ProtoModule):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
 
-                # '''......................TEMPORARY TEST CODE START....................'''
+                '''......................TEMPORARY TEST CODE START....................'''
 
-                # print('\n' * 20)
-                # print("Front Left: ", round(self.distance.front_left, 2))
-                # print("Front Right: ", round(self.distance.front_right, 2))
-                # print("Rear Left: ", round(self.distance.rear_left, 2))
-                # print("Rear Right: ", round(self.distance.rear_right,2))
+                print('\n' * 20)
+                print("Front Left: ", round(self.distance.front_left, 2))
+                print("Front Right: ", round(self.distance.front_right, 2))
+                print("Rear Left: ", round(self.distance.rear_left, 2))
+                print("Rear Right: ", round(self.distance.rear_right,2))
 
-                # '''......................TEMPORARY TEST CODE END......................'''
+                '''......................TEMPORARY TEST CODE END......................'''
 
             else:
                 # Case for each potential action
