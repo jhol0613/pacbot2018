@@ -82,7 +82,7 @@ class OdometryModule(rm.ProtoModule):
         msg = EncoderReport()
         msg.left = self.leftClicks
         msg.right = self.rightClicks
-        msg = msg.SerializeToString()
+        self.write(msg.SerializeToString(), MsgType.ENCODER_REPORT)
 
 def destroy(*args):
     GPIO.cleanup()
