@@ -15,7 +15,7 @@ ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1 # adjustment factor for unequal turning
-ODOMETRY_TURN_THRESHOLD = 250 # odometer cutoff for finishing turn
+ODOMETRY_TURN_THRESHOLD = 280 # odometer cutoff for finishing turn
 ROTATIONAL_SPEED = 30 # speed at which rotations occur
 
 # Constants for pause
@@ -45,6 +45,7 @@ class GamePlayer(rm.ProtoModule):
         self.cursor = 0 # Marks position in action sequence
 
         self.timer = 0 # Can be used by subroutines that use time as an exit condition
+        print("GamePlayer running")
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
