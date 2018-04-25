@@ -190,7 +190,7 @@ class GamePlayer(rm.ProtoModule):
                             correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
                         else:
                             correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
-                correctionFactor = (correctionFactor / numActiveSensors) * P_MULTIPLIER
+                correctionFactor = int((correctionFactor / numActiveSensors) * P_MULTIPLIER)
             else:
                 correctionFactor = 0
             
@@ -254,7 +254,7 @@ class GamePlayer(rm.ProtoModule):
         return False
 
     def goStraightExitCondition(self):
-        print("Front distance: ", self.distance.front_center)
+        # print("Front distance: ", self.distance.front_center)
         # return False
         return self.distance.front_center < FRONT_SENSOR_THRESHOLD
 
