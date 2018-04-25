@@ -121,6 +121,8 @@ class GamePlayer(rm.ProtoModule):
                     moveCommand = self.initialMove()
                 elif action == 'PAUSE':
                     moveCommand = self.pause()
+                elif action == 'END':
+                    moveCommand = self.end()
 
         moveCommand = moveCommand.SerializeToString()
         self.write(moveCommand, MsgType.TWIST)
@@ -213,12 +215,12 @@ class GamePlayer(rm.ProtoModule):
                 pCorrectionFactor = 0
                 dCorrectionFactor = 0
             
-            # self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
-            # self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
-            # self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
-            # self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
-            # self.csvOut.write(str(pCorrectionFactor) + ",")
-            # self.csvOut.write(str(dCorrectionFactor) + "\n")
+            self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
+            self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
+            self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
+            self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
+            self.csvOut.write(str(pCorrectionFactor) + ",")
+            self.csvOut.write(str(dCorrectionFactor) + "\n")
 
             twist.velocity = FORWARD_SPEED
             twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
@@ -277,6 +279,14 @@ class GamePlayer(rm.ProtoModule):
             self.timer = time.time()
         if self.pauseExitCondition():
             self.action_complete = True
+        twist.velocity = 0
+        twist.omega = 0
+        return twist
+
+    def end(self):
+        if not self.action_started:
+            self.action_started = True
+        self.csvOut.close()
         twist.velocity = 0
         twist.omega = 0
         return twist
