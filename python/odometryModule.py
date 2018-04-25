@@ -53,6 +53,9 @@ class OdometryModule(rm.ProtoModule):
         GPIO.setup(LEFT_ENCODER, GPIO.IN)
         GPIO.setup(RIGHT_ENCODER, GPIO.IN)
 
+        GPIO.add_event_detect(LEFT_ENCODER, GPIO.BOTH, self.clickLeft)
+        GPIO.add_event_detect(RIGHT_ENCODER, GPIO.BOTH, self.clickRight)
+
         time.sleep(1)
 
     def clickLeft(self, channel):
@@ -77,10 +80,10 @@ class OdometryModule(rm.ProtoModule):
         self.running = False
         self.leftClicks = 0
         self.rightClicks = 0
-        # msg = EncoderReport()
-        # msg.left = self.leftClicks
-        # msg.right = self.rightClicks
-        # msg = msg.SerializeToString()
+        msg = EncoderReport()
+        msg.left = self.leftClicks
+        msg.right = self.rightClicks
+        msg = msg.SerializeToString()
 
 def destroy(*args):
     GPIO.cleanup()
