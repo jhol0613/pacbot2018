@@ -244,7 +244,7 @@ class GamePlayer(rm.ProtoModule):
         twist.velocity = 0
         twist.omega = 0
 
-        return twist
+        return self.end()
 
     # May require two separate parts
     def initialMove(self):
