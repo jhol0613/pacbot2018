@@ -79,9 +79,10 @@ class GamePlayer(rm.ProtoModule):
                 elif action == 'INITIAL_TURN':
                     moveCommand = self.initialTurn()
 
-        self.write(moveCommand.SerializeToString(), MsgType.TWIST)
+        moveCommand = moveCommand.SerializeToString()
+        self.write(moveCommand, MsgType.TWIST)
 
-        print("Tick time: ", time.time() - start)
+        # print("Tick time: ", time.time() - start)
 
         # this function will get called in a loop with FREQUENCY frequency
         # wheels_msg = Twist()
@@ -167,8 +168,10 @@ class GamePlayer(rm.ProtoModule):
 
     # This is the only subroutine that can interrupt another
     def bumpRecover(self):
-        '''TODO'''
-        return
+        twist = Twist()
+        twist.velocity = 0
+        twist.omega = 0
+        return twist
 
     # May require two separate parts
     def initialTurn(self):
