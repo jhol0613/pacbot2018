@@ -67,6 +67,7 @@ class OdometryModule(rm.ProtoModule):
         self.running = True
 
     def reset(self):
+        print("Resetting odometers!")
         if self.running:
             GPIO.remove_event_detect(LEFT_ENCODER)
             GPIO.remove_event_detect(RIGHT_ENCODER)
