@@ -166,8 +166,6 @@ class GamePlayer(rm.ProtoModule):
         if not self.action_started:
             self.action_started = True
 
-        if 
-
         if self.goStraightExitCondition():
             self.action_complete = True
             twist.velocity = 0
