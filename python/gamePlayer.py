@@ -309,8 +309,12 @@ class GamePlayer(rm.ProtoModule):
         return True
 
     def initialMoveExitCondition(self):
-        '''TODO'''
-        return True
+        if self.odom_reading:
+            print("Left odom reading: ", self.odom_reading.left)
+            print("Right odom reading: ", self.odom_reading.right)
+        if self.odom_reading.right > ODOMETRY_INITIAL_MOVE_THRESHOLD:
+            return True
+        return False
 
     def pauseExitCondition(self):
         return (time.time() - self.timer) > PAUSE_TIME
