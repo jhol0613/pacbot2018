@@ -76,10 +76,10 @@ class OdometryModule(rm.ProtoModule):
         self.running = False
         self.leftClicks = 0
         self.rightClicks = 0
-        msg = EncoderReport()
-        msg.left = self.leftClicks
-        msg.right = self.rightClicks
-        msg = msg.SerializeToString()
+        # msg = EncoderReport()
+        # msg.left = self.leftClicks
+        # msg.right = self.rightClicks
+        # msg = msg.SerializeToString()
 
 def destroy(*args):
     GPIO.cleanup()
