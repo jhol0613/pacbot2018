@@ -22,7 +22,7 @@ ROTATIONAL_SPEED = 30 # speed at which rotations occur
 PAUSE_TIME = 0.5 # length of a typical pause
 
 # Constants for straight motion
-FORWARD_SPEED = 30 # nominal forward movement speed
+FORWARD_SPEED = 50 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 4 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8 # minimum sensor value before stopping forward motion
 
