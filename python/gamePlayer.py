@@ -15,7 +15,7 @@ FREQUENCY = 40
 ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 
 # Constants for rotations
-ROTATIONAL_CORRECTION_CONSTANT = 1 # adjustment factor for unequal turning
+ROTATIONAL_CORRECTION_CONSTANT = 1.5 # adjustment factor for unequal turning
 ROTATIONAL_SPEED = 40 # speed at which rotations occur
 ODOMETRY_LEFT_TURN_THRESHOLD = 220 # odometer cutoff for finishing left turn
 ODOMETRY_RIGHT_TURN_THRESHOLD = 220 # odometer cutoff for finishing right turn
@@ -34,7 +34,7 @@ P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor
 D_MULTIPLIER = 8.0 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
-ODOMETRY_INITIAL_MOVE_THRESHOLD = 260 # odometer cutoff for finishing initial forward motion
+ODOMETRY_INITIAL_MOVE_THRESHOLD = 280 # odometer cutoff for finishing initial forward motion
 FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 
 class GamePlayer(rm.ProtoModule):
