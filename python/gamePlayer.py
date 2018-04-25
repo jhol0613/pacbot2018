@@ -4,6 +4,7 @@ import os
 import robomodules as rm
 from messages import *
 import time
+import atexit
 
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
@@ -27,6 +28,8 @@ FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 4 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
+SENSOR_TARGET = 7.0 # target value that sensors try to return to
+P_MULTIPLIER = 2.0 # this is multiplied by calculated correction factor to determine omega
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -49,6 +52,8 @@ class GamePlayer(rm.ProtoModule):
 
         self.timer = 0 # Can be used by subroutines that use time as an exit condition
         print("GamePlayer running")
+
+        self.csvOut = open("p_test.csv", "w+")
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
@@ -84,15 +89,7 @@ class GamePlayer(rm.ProtoModule):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
 
-                # '''......................TEMPORARY TEST CODE START....................'''
 
-                # print('\n' * 20)
-                # print("Front Left: ", round(self.distance.front_left, 2))
-                # print("Front Right: ", round(self.distance.front_right, 2))
-                # print("Rear Left: ", round(self.distance.rear_left, 2))
-                # print("Rear Right: ", round(self.distance.rear_right,2))
-
-                # '''......................TEMPORARY TEST CODE END......................'''
 
             else:
                 # Case for each potential action
@@ -105,6 +102,18 @@ class GamePlayer(rm.ProtoModule):
                     moveCommand = self.turn90Right()
                 elif action == 'GO_STRAIGHT':
                     moveCommand = self.goStraight()
+                    # '''......................TEMPORARY TEST CODE START....................'''
+
+                    # print('\n' * 20)
+                    self.csvOut.write(round(self.distance.front_left, 2), ",")
+                    self.csvOut.write(round(self.distance.front_right, 2), ",")
+                    self.csvOut.write(round(self.distance.rear_left, 2), ",")
+                    self.csvOut.write(round(self.distance.rear_right, 2), "\n")
+                    # print("Front Right: ", round(self.distance.front_right, 2))
+                    # print("Rear Left: ", round(self.distance.rear_left, 2))
+                    # print("Rear Right: ", round(self.distance.rear_right,2))
+
+                    # '''......................TEMPORARY TEST CODE END......................'''
                 elif action == 'INITIAL_TURN':
                     moveCommand = self.initialTurn()
                 elif action == 'PAUSE':
@@ -165,35 +174,38 @@ class GamePlayer(rm.ProtoModule):
 
         twist = Twist()
 
-        case = self.checkCase()
+        if not self.action_started:
+            self.action_started = True
+        if self.goStraightExitCondition():
+            self.action_complete = True
+            twist.velocity = 0
+            twist.omega = 0
+        else:
+            case = self.checkCase()
+            numActiveSensors = sum(case)
+            sensorArray = [self.distance.front_left, self.distance.front_right, self.distance.rear_left, self.distance.rear_right]
+            correctionFactor = 0
+            for sensorIndex, active in enumerate(case):
+                if active:
+                    # Reverse the correction for rear sensors
+                    if sensorIndex <= 1:
+                        correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
+                    else:
+                        correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
+            correctionFactor = (correctionFactor / numActiveSensors) * P_MULTIPLIER
+            
+            twist.velocity = FORWARD_SPEED
+            twist.omega = FORWARD_OMEGA_CORRECTION + correctionFactor
 
-        # if not self.action_started:
-        #     self.action_started = True
-
-        # if self.goStraightExitCondition():
-        #     self.action_complete = True
-        #     twist.velocity = 0
-        #     twist.omega = 0
-        # else:
-        #     twist.velocity = FORWARD_SPEED
-        #     twist.omega = FORWARD_OMEGA_CORRECTION
-        # return twist
-        twist.velocity = 0
-        twist.omega = 0
-        print("Case: ", bin(case))
         return twist
 
-    # case is a binary number with following structure
-    # first digit: front left sensor active
-    # second digit: front right sensor active
-    # third digit: rear left sensor active
-    # fourth digit: rear right sensor active
+    # case takes form [front_left, front_right, rear_left, rear_right]
     def checkCase(self):
-        a = 8 * int(self.distance.front_left < SENSOR_CASE_THRESHOLD)
-        b = 4 * int(self.distance.front_right < SENSOR_CASE_THRESHOLD)
-        c = 2 * int(self.distance.rear_left < SENSOR_CASE_THRESHOLD)
-        d = 1 * int(self.distance.rear_right < SENSOR_CASE_THRESHOLD)
-        case = a + b + c + d
+        a = self.distance.front_left < SENSOR_CASE_THRESHOLD
+        b = self.distance.front_right < SENSOR_CASE_THRESHOLD
+        c = self.distance.rear_left < SENSOR_CASE_THRESHOLD
+        d = self.distance.rear_right < SENSOR_CASE_THRESHOLD
+        case = [a, b, c, d]
         # print("Case (in checkCase): ", case)
         return case
 
@@ -210,6 +222,9 @@ class GamePlayer(rm.ProtoModule):
         return
 
     def pause(self):
+        
+        self.csvOut.close()
+
         twist = Twist()
         if not self.action_started:
             self.action_started = True
@@ -253,7 +268,6 @@ class GamePlayer(rm.ProtoModule):
 
     def pauseExitCondition(self):
         return (time.time() - self.timer) > PAUSE_TIME
-
 
 def main():
     module = GamePlayer(ADDRESS, PORT)
