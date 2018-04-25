@@ -214,6 +214,9 @@ class GamePlayer(rm.ProtoModule):
         twist = Twist()
         twist.velocity = 0
         twist.omega = 0
+
+        self.csvOut.close()
+        
         return twist
 
     # May require two separate parts

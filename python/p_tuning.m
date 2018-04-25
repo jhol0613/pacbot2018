@@ -1,6 +1,7 @@
 clf
 data = csvread('p_test.csv');
-t = linspace(1, 100, length(data));
+%data = data(1:20, :);
+t = linspace(1, 100, lengt(data));
 hold on
 for i = 1:4
     plot(t, data(:,i));
