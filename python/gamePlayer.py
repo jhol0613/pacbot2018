@@ -14,7 +14,7 @@ FREQUENCY = 40
 ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 
 # Constants for rotations
-ROTATIONAL_CORRECTION_CONSTANT = 2 # adjustment factor for unequal turning
+ROTATIONAL_CORRECTION_CONSTANT = 1 # adjustment factor for unequal turning
 ODOMETRY_TURN_THRESHOLD = 250 # odometer cutoff for finishing turn
 ROTATIONAL_SPEED = 30 # speed at which rotations occur
 
