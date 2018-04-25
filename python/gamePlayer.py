@@ -181,7 +181,7 @@ class GamePlayer(rm.ProtoModule):
         twist.velocity = 0
         twist.omega = 0
         print("Case: ", bin(case))
-        return 
+        return twist
 
     # case is a binary number with following structure
     # first digit: front left sensor active
