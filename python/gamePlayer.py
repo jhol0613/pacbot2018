@@ -30,8 +30,8 @@ FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward moti
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
-D_MULTIPLIER = 8.0 # this is multiplied by calculated direction correction factor to determine omega
+P_MULTIPLIER = 6.5 # this is multiplied by calculated position correction factor to determine omega
+D_MULTIPLIER = 10.5 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
 ODOMETRY_INITIAL_MOVE_THRESHOLD = 280 # odometer cutoff for finishing initial forward motion
@@ -303,8 +303,10 @@ class GamePlayer(rm.ProtoModule):
         # print("Front distance: ", self.distance.front_center)
         # return False
         if self.distance:
+            print("Front sensor: ", self.distance.front_center)
             return self.distance.front_center < FRONT_SENSOR_THRESHOLD
         else:
+            print("No front sensor value")
             return False
 
     def bumpRecoverExitCondition(self):
