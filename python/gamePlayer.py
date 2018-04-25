@@ -18,7 +18,7 @@ ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 ROTATIONAL_CORRECTION_CONSTANT = 1 # adjustment factor for unequal turning
 ROTATIONAL_SPEED = 40 # speed at which rotations occur
 ODOMETRY_LEFT_TURN_THRESHOLD = 250 # odometer cutoff for finishing left turn
-ODOMETRY_RIGHT_TURN_THRESHOLD = 280 # odometer cutoff for finishing right turn
+ODOMETRY_RIGHT_TURN_THRESHOLD = 250 # odometer cutoff for finishing right turn
 
 # Constants for pause
 PAUSE_TIME = 0.5 # length of a typical pause
@@ -315,8 +315,8 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-        if self.odom_reading.right > ODOMETRY_INITIAL_MOVE_THRESHOLD:
-            return True
+            if self.odom_reading.right > ODOMETRY_INITIAL_MOVE_THRESHOLD:
+                return True
         return False
 
     def pauseExitCondition(self):
