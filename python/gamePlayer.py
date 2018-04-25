@@ -102,10 +102,10 @@ class GamePlayer(rm.ProtoModule):
                     # '''......................TEMPORARY TEST CODE START....................'''
 
                     # print('\n' * 20)
-                    self.csvOut.write(round(self.distance.front_left, 2), ",")
-                    self.csvOut.write(round(self.distance.front_right, 2), ",")
-                    self.csvOut.write(round(self.distance.rear_left, 2), ",")
-                    self.csvOut.write(round(self.distance.rear_right, 2), "\n")
+                    self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
+                    self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
+                    self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
+                    self.csvOut.write(str(round(self.distance.rear_right, 2)) + "\n")
                     # print("Front Right: ", round(self.distance.front_right, 2))
                     # print("Rear Left: ", round(self.distance.rear_left, 2))
                     # print("Rear Right: ", round(self.distance.rear_right,2))
