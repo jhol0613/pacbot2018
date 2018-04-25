@@ -213,12 +213,12 @@ class GamePlayer(rm.ProtoModule):
                 pCorrectionFactor = 0
                 dCorrectionFactor = 0
             
-            self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
-            self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
-            self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
-            self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
-            self.csvOut.write(str(pCorrectionFactor) + ",")
-            self.csvOut.write(str(dCorrectionFactor) + "\n")
+            # self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
+            # self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
+            # self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
+            # self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
+            # self.csvOut.write(str(pCorrectionFactor) + ",")
+            # self.csvOut.write(str(dCorrectionFactor) + "\n")
 
             twist.velocity = FORWARD_SPEED
             twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
@@ -269,7 +269,7 @@ class GamePlayer(rm.ProtoModule):
 
     def pause(self):
 
-        self.csvOut.close()
+        # self.csvOut.close()
 
         twist = Twist()
         if not self.action_started:
