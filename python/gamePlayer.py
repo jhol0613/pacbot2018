@@ -146,15 +146,16 @@ class GamePlayer(rm.ProtoModule):
             twist.omega = 0
         else:
             twist.velocity = 0
-            twist.velocity += (self.odom_reading.right - self.odom_reading.left) * int(ROTATIONAL_CORRECTION_CONSTANT)
-            twist.omega = 40
+            twist.omega = 0
+            if self.odom_reading:
+                twist.velocity += (self.odom_reading.right - self.odom_reading.left) * int(ROTATIONAL_CORRECTION_CONSTANT)
+                twist.omega = 40
         return twist
 
     def goStraight(self):
         twist = Twist()
         if not self.action_started:
             self.action_started = True
-        # Check action
         if self.goStraightExitCondition():
             self.action_complete = True
             twist.velocity = 0
