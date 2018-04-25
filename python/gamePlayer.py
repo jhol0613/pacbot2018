@@ -198,7 +198,7 @@ class GamePlayer(rm.ProtoModule):
             self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
             self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
             self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
-            self.csvOut.write(str(correctionFactor), + "\n")
+            self.csvOut.write(str(correctionFactor) + "\n")
 
             twist.velocity = FORWARD_SPEED
             twist.omega = FORWARD_OMEGA_CORRECTION + correctionFactor
