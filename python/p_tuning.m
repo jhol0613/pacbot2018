@@ -1,9 +1,9 @@
 clf
 data = csvread('p_test.csv');
 %data = data(1:20, :);
-t = linspace(1, 100, lengt(data));
+t = linspace(1, 100, length(data));
 hold on
-for i = 1:4
+for i = 1:5
     plot(t, data(:,i));
 end
 plot(t, 7*ones(1, length(t)), '--');
