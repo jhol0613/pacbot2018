@@ -5,20 +5,20 @@ if [ "$#" -eq 2 ]; then
 
 	echo "Initializing modules..."
 	python3 rmServer.py &
-	sleep 1
+	sleep 2
 	python3 commsModule.py  "$1" "$2" &
-	sleep 1
+	sleep 2
 	python3 motorModule.py &
-	sleep 1
+	sleep 2
 	python3 bumperModule.py &
-	sleep 1
+	sleep 2
 	python3 ultrasonicSensorModule.py &
-	sleep 1
+	sleep 2
 	python3 odometryModule.py &
 
 	# $1 and $2 are the external server ip and port respectively
 	#python3 commsModule.py "$1" "$2" &
-	sleep 10 # Give modules time to initialize
+	sleep 8 # Give modules time to initialize
 	echo "All sensor and motor modules running"
 	echo "Starting player module..."
 
