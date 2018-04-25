@@ -88,9 +88,6 @@ class GamePlayer(rm.ProtoModule):
             if self.cursor >= len(self.action_sequence):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
-
-
-
             else:
                 # Case for each potential action
                 action = self.action_sequence[self.cursor]
@@ -183,16 +180,19 @@ class GamePlayer(rm.ProtoModule):
         else:
             case = self.checkCase()
             numActiveSensors = sum(case)
-            sensorArray = [self.distance.front_left, self.distance.front_right, self.distance.rear_left, self.distance.rear_right]
-            correctionFactor = 0
-            for sensorIndex, active in enumerate(case):
-                if active:
-                    # Reverse the correction for rear sensors
-                    if sensorIndex <= 1:
-                        correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
-                    else:
-                        correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
-            correctionFactor = (correctionFactor / numActiveSensors) * P_MULTIPLIER
+            if numActiveSensors > 0:
+                sensorArray = [self.distance.front_left, self.distance.front_right, self.distance.rear_left, self.distance.rear_right]
+                correctionFactor = 0
+                for sensorIndex, active in enumerate(case):
+                    if active:
+                        # Reverse the correction for rear sensors
+                        if sensorIndex <= 1:
+                            correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
+                        else:
+                            correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
+                correctionFactor = (correctionFactor / numActiveSensors) * P_MULTIPLIER
+            else:
+                correctionFactor = 0
             
             twist.velocity = FORWARD_SPEED
             twist.omega = FORWARD_OMEGA_CORRECTION + correctionFactor
@@ -222,7 +222,7 @@ class GamePlayer(rm.ProtoModule):
         return
 
     def pause(self):
-        
+
         self.csvOut.close()
 
         twist = Twist()
