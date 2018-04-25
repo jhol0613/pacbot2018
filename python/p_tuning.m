@@ -12,6 +12,7 @@ xlabel('time (arbitrary units)');
 ylabel('sensor reading (cm)');
 
 subplot(2, 1, 2);
-plot(t, data(:,5), t, zeros(1, length(t)), '--');
+plot(t, data(:,5), t, data(:,6), t, zeros(1, length(t)), '--');
+legend('pCorrectionFactor', 'dCorrectionFactor');
 
 shg

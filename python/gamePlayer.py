@@ -29,7 +29,8 @@ FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 2.0 # this is multiplied by calculated correction factor to determine omega
+P_MULTIPLIER = 2.0 # this is multiplied by calculated position correction factor to determine omega
+D_MULTIPLIER = 1.0 # this is multiplied by calculated direction correction factor to determine omega
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -181,27 +182,41 @@ class GamePlayer(rm.ProtoModule):
             case = self.checkCase()
             numActiveSensors = sum(case)
             if numActiveSensors > 0:
+                # Calculate pCorrection factor
                 sensorArray = [self.distance.front_left, self.distance.front_right, self.distance.rear_left, self.distance.rear_right]
-                correctionFactor = 0
+                pCorrectionFactor = 0
                 for sensorIndex, active in enumerate(case):
                     if active:
                         # Reverse the correction for rear sensors
                         if sensorIndex % 2 == 0:
-                            correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
+                            pCorrectionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
                         else:
-                            correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
-                correctionFactor = int((correctionFactor / numActiveSensors) * P_MULTIPLIER + 0.5)
+                            pCorrectionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
+                pCorrectionFactor = int((pCorrectionFactor / numActiveSensors) * P_MULTIPLIER + 0.5)
+
+                # Calculate dCorrection factor
+                dCorrectionFactor = 0
+                for sensorIndex, active in enumerate(case):
+                    if active:
+                        # Reverse the correction for rear sensors
+                        if sensorIndex == 0 or sensorIndex == 3:
+                            dCorrectionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
+                        else:
+                            dCorrectionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
+                dCorrectionFactor = int((dCorrectionFactor / numActiveSensors) * D_MULTIPLIER + 0.5)
             else:
-                correctionFactor = 0
+                pCorrectionFactor = 0
+                dCorrectionFactor = 0
             
             self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
             self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
             self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
             self.csvOut.write(str(round(self.distance.rear_right, 2)) + ",")
-            self.csvOut.write(str(correctionFactor) + "\n")
+            self.csvOut.write(str(pCorrectionFactor) + ",")
+            self.csvOut.write(str(dCorrectionFactor) + "\n")
 
             twist.velocity = FORWARD_SPEED
-            twist.omega = FORWARD_OMEGA_CORRECTION + correctionFactor
+            twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor
 
         return twist
 
