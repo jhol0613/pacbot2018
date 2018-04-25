@@ -189,10 +189,10 @@ class GamePlayer(rm.ProtoModule):
     # third digit: rear left sensor active
     # fourth digit: rear right sensor active
     def checkCase(self):
-        a = 8 * int(self.distance.front_left) < SENSOR_CASE_THRESHOLD
-        b = 4 * int(self.distance.front_right) < SENSOR_CASE_THRESHOLD
-        c = 2 * int(self.distance.rear_left) < SENSOR_CASE_THRESHOLD
-        d = 1 * int(self.distance.rear_right) < SENSOR_CASE_THRESHOLD
+        a = 8 * int(self.distance.front_left < SENSOR_CASE_THRESHOLD)
+        b = 4 * int(self.distance.front_right < SENSOR_CASE_THRESHOLD)
+        c = 2 * int(self.distance.rear_left < SENSOR_CASE_THRESHOLD)
+        d = 1 * int(self.distance.rear_right < SENSOR_CASE_THRESHOLD)
         case = a + b + c + d
         return case
 
