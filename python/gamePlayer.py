@@ -10,25 +10,29 @@ PORT = os.environ.get("BIND_PORT", 11293)
 
 FREQUENCY = 40
 
-ACTION_SEQUENCE = ['GO_STRAIGHT', 'PAUSE', 'TURN_90_RIGHT']
+# File containing action sequence for the robot
+ACTION_SEQUENCE_FILES = ["paths/path1.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 2 # adjustment factor for unequal turning
-ODOMETRY_TURN_THRESHOLD = 240 # odometer cutoff for finishing turn
-ROTATIONAL_SPEED = 40 # speed at which rotations occur
+ODOMETRY_TURN_THRESHOLD = 250 # odometer cutoff for finishing turn
+ROTATIONAL_SPEED = 30 # speed at which rotations occur
 
 # Constants for pause
-PAUSE_TIME = 1.0 # length of a typical pause
+PAUSE_TIME = 0.5 # length of a typical pause
 
 # Constants for straight motion
 FORWARD_SPEED = 30 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 2 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD = 4 # minimum sensor value before stopping forward motion
+FRONT_SENSOR_THRESHOLD = 4.5 # minimum sensor value before stopping forward motion
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
         self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY, MsgType.ENCODER_REPORT]
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
+
+        r = open(ACTION_SEQUENCE_FILES[0], "r")
+        self.action_sequence = text_file.read().split('\n')
         
         self.paused = True # Flag that tracks whether the game is paused
         self.action_complete = False # Flag that tells whether to continue same action or move to next
@@ -72,12 +76,12 @@ class GamePlayer(rm.ProtoModule):
                 self.action_complete = False
                 self.action_started = False
             # Stop movement if completed action_sequence
-            if self.cursor >= len(ACTION_SEQUENCE):
+            if self.cursor >= len(self.action_sequence):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
             else:
                 # Case for each potential action
-                action = ACTION_SEQUENCE[self.cursor]
+                action = self.action_sequence[self.cursor]
                 if self.bumper:
                     moveCommand = self.bumpRecover()
                 elif action == 'TURN_90_LEFT':
@@ -138,10 +142,27 @@ class GamePlayer(rm.ProtoModule):
 
     # List of subroutines that the pacbot can enter
     def turn90Left(self):
-        '''TODO'''
-
+        twist = Twist()
+        if not self.action_started:
+            self.action_started = True
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.BEGIN
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+        if self.turn90RightExitCondition():
+            self.action_complete = True
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.RESET
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+            twist.velocity = 0
+            twist.omega = 0
+        else:
+            twist.velocity = 0
+            twist.omega = 0
+            if self.odom_reading:
+                twist.velocity += int((self.odom_reading.left - self.odom_reading.right) * ROTATIONAL_CORRECTION_CONSTANT)
+                twist.omega = -ROTATIONAL_SPEED
+        return twist
         # Remember to add the opposite correction from turn90right!!!
-        return
 
     def turn90Right(self):
         twist = Twist()
@@ -162,7 +183,7 @@ class GamePlayer(rm.ProtoModule):
             twist.omega = 0
             if self.odom_reading:
                 twist.velocity += int((self.odom_reading.right - self.odom_reading.left) * ROTATIONAL_CORRECTION_CONSTANT)
-                twist.omega = 40
+                twist.omega = ROTATIONAL_SPEED
         return twist
 
     def goStraight(self):
@@ -204,8 +225,12 @@ class GamePlayer(rm.ProtoModule):
     # Checks specified conditions and returns a boolean stating whether
     # a subroutine should end
     def turn90LeftExitCondition(self):
-        '''TODO'''
-        return True
+        if self.odom_reading:
+            print("Left odom reading: ", self.odom_reading.left)
+            print("Right odom reading: ", self.odom_reading.right)
+            if self.odom_reading.right > ODOMETRY_TURN_THRESHOLD:
+                return True
+        return False
 
     def turn90RightExitCondition(self):
         if self.odom_reading:
