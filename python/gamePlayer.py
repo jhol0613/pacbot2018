@@ -26,6 +26,7 @@ PAUSE_TIME = 0.5 # length of a typical pause
 FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 4 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
+SENSOR_CASE_THRESHOLD = 12 # max sensor reading that is considered when centering path
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -83,15 +84,15 @@ class GamePlayer(rm.ProtoModule):
                 moveCommand.velocity = 0
                 moveCommand.omega = 0
 
-                '''......................TEMPORARY TEST CODE START....................'''
+                # '''......................TEMPORARY TEST CODE START....................'''
 
-                print('\n' * 20)
-                print("Front Left: ", round(self.distance.front_left, 2))
-                print("Front Right: ", round(self.distance.front_right, 2))
-                print("Rear Left: ", round(self.distance.rear_left, 2))
-                print("Rear Right: ", round(self.distance.rear_right,2))
+                # print('\n' * 20)
+                # print("Front Left: ", round(self.distance.front_left, 2))
+                # print("Front Right: ", round(self.distance.front_right, 2))
+                # print("Rear Left: ", round(self.distance.rear_left, 2))
+                # print("Rear Right: ", round(self.distance.rear_right,2))
 
-                '''......................TEMPORARY TEST CODE END......................'''
+                # '''......................TEMPORARY TEST CODE END......................'''
 
             else:
                 # Case for each potential action
@@ -163,17 +164,37 @@ class GamePlayer(rm.ProtoModule):
     def goStraight(self):
 
         twist = Twist()
-        if not self.action_started:
-            self.action_started = True
 
-        if self.goStraightExitCondition():
-            self.action_complete = True
-            twist.velocity = 0
-            twist.omega = 0
-        else:
-            twist.velocity = FORWARD_SPEED
-            twist.omega = FORWARD_OMEGA_CORRECTION
-        return twist
+        case = self.checkCase()
+
+        # if not self.action_started:
+        #     self.action_started = True
+
+        # if self.goStraightExitCondition():
+        #     self.action_complete = True
+        #     twist.velocity = 0
+        #     twist.omega = 0
+        # else:
+        #     twist.velocity = FORWARD_SPEED
+        #     twist.omega = FORWARD_OMEGA_CORRECTION
+        # return twist
+        twist.velocity = 0
+        twist.omega = 0
+        print("Case: ", bin(case))
+        return 
+
+    # case is a binary number with following structure
+    # first digit: front left sensor active
+    # second digit: front right sensor active
+    # third digit: rear left sensor active
+    # fourth digit: rear right sensor active
+    def checkCase(self):
+        a = 8 * int(self.distance.front_left) < SENSOR_CASE_THRESHOLD
+        b = 4 * int(self.distance.front_right) < SENSOR_CASE_THRESHOLD
+        c = 2 * int(self.distance.rear_left) < SENSOR_CASE_THRESHOLD
+        d = 1 * int(self.distance.rear_right) < SENSOR_CASE_THRESHOLD
+        case = a + b + c + d
+        return case
 
     # This is the only subroutine that can interrupt another
     def bumpRecover(self):
