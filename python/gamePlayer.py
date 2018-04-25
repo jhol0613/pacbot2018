@@ -88,6 +88,8 @@ class GamePlayer(rm.ProtoModule):
                     moveCommand = self.goStraight()
                 elif action == 'INITIAL_TURN':
                     moveCommand = self.initialTurn()
+                elif action == 'PAUSE':
+                    moveCommand = self.pause()
 
         moveCommand = moveCommand.SerializeToString()
         self.write(moveCommand, MsgType.TWIST)
