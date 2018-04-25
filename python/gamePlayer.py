@@ -230,7 +230,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.right > ODOMETRY_TURN_THRESHOLD:
+            if self.odom_reading.right > ODOMETRY_LEFT_TURN_THRESHOLD:
                 return True
         return False
 
@@ -238,7 +238,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.odom_reading.right > ODOMETRY_TURN_THRESHOLD:
+            if self.odom_reading.right > ODOMETRY_RIGHT_TURN_THRESHOLD:
                 return True
         return False
 
