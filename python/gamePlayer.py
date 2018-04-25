@@ -11,7 +11,7 @@ PORT = os.environ.get("BIND_PORT", 11293)
 FREQUENCY = 40
 
 # File containing action sequence for the robot
-ACTION_SEQUENCE_FILES = ["paths/path1.txt"]
+ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 2 # adjustment factor for unequal turning
