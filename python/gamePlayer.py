@@ -186,7 +186,7 @@ class GamePlayer(rm.ProtoModule):
                 for sensorIndex, active in enumerate(case):
                     if active:
                         # Reverse the correction for rear sensors
-                        if sensorIndex <= 1:
+                        if sensorIndex % 2 == 0:
                             correctionFactor += (SENSOR_TARGET - sensorArray[sensorIndex])
                         else:
                             correctionFactor -= (SENSOR_TARGET - sensorArray[sensorIndex])
