@@ -63,7 +63,6 @@ class OdometryModule(rm.ProtoModule):
             self.leftClicks += 1
 
     def clickRight(self, channel):
-        print("Clicking right")
         if self.running:
             self.rightClicks += 1
 
