@@ -28,8 +28,9 @@ FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
+SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
+P_MULTIPLIER = 3.0 # this is multiplied by calculated position correction factor to determine omega
 D_MULTIPLIER = 4.0 # this is multiplied by calculated direction correction factor to determine omega
 
 class GamePlayer(rm.ProtoModule):
@@ -222,10 +223,10 @@ class GamePlayer(rm.ProtoModule):
 
     # case takes form [front_left, front_right, rear_left, rear_right]
     def checkCase(self):
-        a = self.distance.front_left < SENSOR_CASE_THRESHOLD
-        b = self.distance.front_right < SENSOR_CASE_THRESHOLD
-        c = self.distance.rear_left < SENSOR_CASE_THRESHOLD
-        d = self.distance.rear_right < SENSOR_CASE_THRESHOLD
+        a = self.distance.front_left < SENSOR_CASE_THRESHOLD and self.distance.front_left > SENSOR_CASE_MIN
+        b = self.distance.front_right < SENSOR_CASE_THRESHOLD and self.distance.front_right > SENSOR_CASE_MIN
+        c = self.distance.rear_left < SENSOR_CASE_THRESHOLD and self.distance.rear_left > SENSOR_CASE_MIN
+        d = self.distance.rear_right < SENSOR_CASE_THRESHOLD and self.distance.rear_right > SENSOR_CASE_MIN
         case = [a, b, c, d]
         # print("Case (in checkCase): ", case)
         return case
