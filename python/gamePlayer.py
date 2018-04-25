@@ -32,7 +32,7 @@ class GamePlayer(rm.ProtoModule):
         super().__init__(addr, port, message_buffers, MsgType, FREQUENCY, self.subscriptions)
 
         r = open(ACTION_SEQUENCE_FILES[0], "r")
-        self.action_sequence = text_file.read().split('\n')
+        self.action_sequence = r.read().split('\n')
         
         self.paused = True # Flag that tracks whether the game is paused
         self.action_complete = False # Flag that tells whether to continue same action or move to next
