@@ -20,7 +20,7 @@ if [ "$#" -eq 2 ]; then
 	#python3 commsModule.py "$1" "$2" &
 	sleep 10 # Give modules time to initialize
 	echo "All sensor and motor modules running"
-	echo "Player module started"
+	echo "Starting player module..."
 
 	python3 gamePlayer.py
 
