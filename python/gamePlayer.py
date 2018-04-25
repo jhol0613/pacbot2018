@@ -194,7 +194,7 @@ class GamePlayer(rm.ProtoModule):
         c = 2 * int(self.distance.rear_left < SENSOR_CASE_THRESHOLD)
         d = 1 * int(self.distance.rear_right < SENSOR_CASE_THRESHOLD)
         case = a + b + c + d
-        print("Case (in checkCase): ", case)
+        # print("Case (in checkCase): ", case)
         return case
 
     # This is the only subroutine that can interrupt another
