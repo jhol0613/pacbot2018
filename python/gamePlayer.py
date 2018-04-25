@@ -29,8 +29,8 @@ FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD = 8.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 2.0 # this is multiplied by calculated position correction factor to determine omega
-D_MULTIPLIER = 1.0 # this is multiplied by calculated direction correction factor to determine omega
+P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
+D_MULTIPLIER = 2.0 # this is multiplied by calculated direction correction factor to determine omega
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -216,7 +216,7 @@ class GamePlayer(rm.ProtoModule):
             self.csvOut.write(str(dCorrectionFactor) + "\n")
 
             twist.velocity = FORWARD_SPEED
-            twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor
+            twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
 
         return twist
 
