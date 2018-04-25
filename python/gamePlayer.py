@@ -211,12 +211,11 @@ class GamePlayer(rm.ProtoModule):
 
     # This is the only subroutine that can interrupt another
     def bumpRecover(self):
+        self.actionComplete = True
         twist = Twist()
         twist.velocity = 0
         twist.omega = 0
 
-        self.csvOut.close()
-        
         return twist
 
     # May require two separate parts
