@@ -34,6 +34,7 @@ class GamePlayer(rm.ProtoModule):
 
         r = open(ACTION_SEQUENCE_FILES[0], "r")
         self.action_sequence = r.read().split('\n')
+        print("Action Sequence: ", self.action_sequence)
         
         self.paused = True # Flag that tracks whether the game is paused
         self.action_complete = False # Flag that tells whether to continue same action or move to next
