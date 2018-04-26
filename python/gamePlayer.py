@@ -34,7 +34,7 @@ P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor
 D_MULTIPLIER = 9.0 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
-ODOMETRY_INITIAL_MOVE_THRESHOLD = 290 # odometer cutoff for finishing initial forward motion
+ODOMETRY_INITIAL_MOVE_THRESHOLD = 310 # odometer cutoff for finishing initial forward motion
 FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 
 # Constants for bump recovery
