@@ -333,6 +333,7 @@ class GamePlayer(rm.ProtoModule):
                     return True
             else:
                 if self.odom_reading.left > ODOMETRY_BUMP_RECOVERY_THRESHOLD:
+                    return True
         return False
 
     def initialMoveExitCondition(self):
