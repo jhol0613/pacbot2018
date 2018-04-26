@@ -24,8 +24,8 @@ ODOMETRY_RIGHT_TURN_THRESHOLD = 210 # odometer cutoff for finishing right turn
 PAUSE_TIME = 0.5 # length of a typical pause
 
 # Constants for straight motion
-FORWARD_SPEED = 35 # nominal forward movement speed
-FORWARD_OMEGA_CORRECTION = 4 # correction for unequal friction
+FORWARD_SPEED = 40 # nominal forward movement speed
+FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
 FRONT_SENSOR_THRESHOLD_1 = 13 # minimum sensor value before slowing forward motion
 FRONT_SENSOR_THRESHOLD_2 = 5 # minimum sensor value before stopping forward motion
 INTER_THRESHOLD_SPEED = 15 # speed to travel after activating first front threshold
