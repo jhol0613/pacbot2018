@@ -40,6 +40,7 @@ FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 # Constants for bump recovery
 BUMP_RECOVERY_OMEGA = 20 # should be positive. Potentially negated based on side of bump
 BUMP_RECOVERY_VELOCITY = -30 # should be negative because you want to move backwards
+ODOMETRY_BUMP_RECOVERY_THRESHOLD = 200 # Odometry measured off the outside wheel
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -251,7 +252,7 @@ class GamePlayer(rm.ProtoModule):
             twist.velocity = 0
             twist.omega = 0
             if self.odom_reading:
-                if self.bumper.side = Bumper.LEFT:
+                if self.bumper.side == Bumper.LEFT:
                     twist.omega = BUMP_RECOVERY_OMEGA
                 else:
                     twist.omega = -BUMP_RECOVERY_OMEGA
@@ -324,8 +325,15 @@ class GamePlayer(rm.ProtoModule):
             return False
 
     def bumpRecoverExitCondition(self):
-        '''TODO'''
-        return True
+        if self.odom_reading:
+            print("Left odom reading: ", self.odom_reading.left)
+            print("Right odom reading: ", self.odom_reading.right)
+            if self.bumper.side = Bumper.LEFT: # measure odometry off outer wheel
+                if self.odom_reading.right > ODOMETRY_BUMP_RECOVERY_THRESHOLD:
+                    return True
+            else:
+                if self.odom_reading.left > ODOMETRY_BUMP_RECOVERY_THRESHOLD:
+        return False
 
     def initialMoveExitCondition(self):
         if self.odom_reading:
