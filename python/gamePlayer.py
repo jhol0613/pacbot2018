@@ -9,7 +9,7 @@ import atexit
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 40
+FREQUENCY = 50
 
 # File containing action sequence for the robot
 ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
