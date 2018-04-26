@@ -12,7 +12,7 @@ import sys
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 30
+FREQUENCY = 80
 
 LEFT_BUTTON = 3
 RIGHT_BUTTON = 5
