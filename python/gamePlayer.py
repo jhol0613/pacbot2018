@@ -37,6 +37,10 @@ D_MULTIPLIER = 9.0 # this is multiplied by calculated direction correction facto
 ODOMETRY_INITIAL_MOVE_THRESHOLD = 290 # odometer cutoff for finishing initial forward motion
 FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 
+# Constants for bump recovery
+BUMP_RECOVERY_OMEGA = 20 # should be positive. Potentially negated based on side of bump
+BUMP_RECOVERY_VELOCITY = -30 # should be negative because you want to move backwards
+
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
         self.subscriptions = [MsgType.BUMPER, MsgType.LIGHT_STATE, MsgType.ULTRASONIC_ARRAY, MsgType.ENCODER_REPORT]
@@ -52,14 +56,18 @@ class GamePlayer(rm.ProtoModule):
         
         self.distance = None # UltrasonicArray message with all measured distances
         self.odom_reading = None # EncoderReport message with encoder clicks since encoder BEGIN command sent
+        
         self.bumper = None # Bumper message showing whether left or right was hit first
+        self.recoveringFromBump = False # Flag shows whether robot is currently recovering from bump
+        self.bumpRecoveryStarted = False # Flag shows whether robot has started bump recovery
 
         self.cursor = 0 # Marks position in action sequence
 
         self.timer = 0 # Can be used by subroutines that use time as an exit condition
+
         print("GamePlayer running")
 
-        self.csvOut = open("p_test.csv", "w+")
+        # self.csvOut = open("p_test.csv", "w+")
 
     def msg_received(self, msg, msg_type):
         # This gets called whenever any message is received
@@ -73,11 +81,13 @@ class GamePlayer(rm.ProtoModule):
             self.distance = msg
         elif msg_type == MsgType.ENCODER_REPORT:
             self.odom_reading = msg
+
         elif msg_type == MsgType.BUMPER:
-            self.bumper = msg
+            if not self.recoveringFromBump: # only reads new bump events once you've recovered
+                self.bumper = msg
+                self.recoveringFromBump = True
 
     def tick(self):
-        start = time.time()
         moveCommand = Twist()
 
         if self.paused:
@@ -97,7 +107,7 @@ class GamePlayer(rm.ProtoModule):
             else:
                 # Case for each potential action
                 action = self.action_sequence[self.cursor]
-                if self.bumper:
+                if self.recoveringFromBump:
                     moveCommand = self.bumpRecover()
                 elif action == 'TURN_90_LEFT':
                     moveCommand = self.turn90Left()
@@ -105,18 +115,6 @@ class GamePlayer(rm.ProtoModule):
                     moveCommand = self.turn90Right()
                 elif action == 'GO_STRAIGHT':
                     moveCommand = self.goStraight()
-                    # '''......................TEMPORARY TEST CODE START....................'''
-
-                    # print('\n' * 20)
-                    # self.csvOut.write(str(round(self.distance.front_left, 2)) + ",")
-                    # self.csvOut.write(str(round(self.distance.front_right, 2)) + ",")
-                    # self.csvOut.write(str(round(self.distance.rear_left, 2)) + ",")
-                    # self.csvOut.write(str(round(self.distance.rear_right, 2)) + "\n")
-                    # print("Front Right: ", round(self.distance.front_right, 2))
-                    # print("Rear Left: ", round(self.distance.rear_left, 2))
-                    # print("Rear Right: ", round(self.distance.rear_right,2))
-
-                    # '''......................TEMPORARY TEST CODE END......................'''
                 elif action == 'INITIAL_MOVE':
                     moveCommand = self.initialMove()
                 elif action == 'PAUSE':
@@ -124,8 +122,6 @@ class GamePlayer(rm.ProtoModule):
 
         moveCommand = moveCommand.SerializeToString()
         self.write(moveCommand, MsgType.TWIST)
-
-        # print("Tick time: ", time.time() - start)
 
     # List of subroutines that the pacbot can enter
     def turn90Left(self):
@@ -237,12 +233,30 @@ class GamePlayer(rm.ProtoModule):
 
     # This is the only subroutine that can interrupt another
     def bumpRecover(self):
-        self.actionComplete = True
         twist = Twist()
-        twist.velocity = 0
-        twist.omega = 0
-
-        return self.end()
+        if not self.bumpRecoveryStarted:
+            self.bumpRecoveryStarted = True
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.BEGIN
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+        if self.bumpRecoveryExitCondition():
+            self.recoveringFromBump = False
+            self.bumpRecoveryStarted = False
+            encoderControl = EncoderControl()
+            encoderControl.command = EncoderControl.RESET
+            self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
+            twist.velocity = 0
+            twist.omega = 0
+        else:
+            twist.velocity = 0
+            twist.omega = 0
+            if self.odom_reading:
+                if self.bumper.side = Bumper.LEFT:
+                    twist.omega = BUMP_RECOVERY_OMEGA
+                else:
+                    twist.omega = -BUMP_RECOVERY_OMEGA
+                twist.velocity = BUMP_RECOVERY_VELOCITY
+        return twist
 
     # May require two separate parts
     def initialMove(self):
