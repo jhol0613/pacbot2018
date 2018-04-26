@@ -67,10 +67,10 @@ class BumperModule(rm.ProtoModule):
 
 
     def setLeftFlag(self, channel):
-        self.leftFlag = not self.leftFlag
+        self.leftFlag = True
 
     def setRightFlag(self, channel):
-        self.rightFlag = not self.rightFlag
+        self.rightFlag = True
 
     def initializeBumpers(self):
         GPIO.setmode(GPIO.BOARD)
