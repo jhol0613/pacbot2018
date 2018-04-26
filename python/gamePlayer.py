@@ -117,7 +117,7 @@ class GamePlayer(rm.ProtoModule):
                 action = self.action_sequence[self.cursor]
                 if self.recoveringFromBump:
                     moveCommand = self.bumpRecover()
-                    print("Move Command Omega: ", moveCommand.omega())
+                    print("Move Command Omega: ", moveCommand.omega)
                 elif action == 'TURN_90_LEFT':
                     moveCommand = self.turn90Left()
                 elif action == 'TURN_90_RIGHT':
