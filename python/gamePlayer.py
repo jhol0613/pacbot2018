@@ -240,7 +240,7 @@ class GamePlayer(rm.ProtoModule):
             encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.BEGIN
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
-        if self.bumpRecoveryExitCondition():
+        if self.bumpRecoverExitCondition():
             self.recoveringFromBump = False
             self.bumpRecoveryStarted = False
             encoderControl = EncoderControl()
