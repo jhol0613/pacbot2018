@@ -17,8 +17,8 @@ ACTION_SEQUENCE_FILES = ["paths/path1.txt"]
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1.1 # adjustment factor for unequal turning
 ROTATIONAL_SPEED = 40 # speed at which rotations occur
-ODOMETRY_LEFT_TURN_THRESHOLD = 230#200 # odometer cutoff for finishing left turn
-ODOMETRY_RIGHT_TURN_THRESHOLD = 250#220 # odometer cutoff for finishing right turn
+ODOMETRY_LEFT_TURN_THRESHOLD = 200 # odometer cutoff for finishing left turn
+ODOMETRY_RIGHT_TURN_THRESHOLD = 220 # odometer cutoff for finishing right turn
 
 # Constants for pause
 PAUSE_TIME = 0.5 # length of a typical pause
@@ -32,7 +32,7 @@ INTER_THRESHOLD_SPEED = 20 # speed to travel after activating first front thresh
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 6.0#5.0 # this is multiplied by calculated position correction factor to determine omega
+P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
 D_MULTIPLIER = 9.0 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
