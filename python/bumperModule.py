@@ -24,8 +24,8 @@ class BumperModule(rm.ProtoModule):
         self.initializeBumpers()
         self.leftFlag = False;
         self.rightFlag = False;
-        self.leftSent = False;
-        self.rightSent = False;
+        # self.leftSent = False;
+        # self.rightSent = False;
         print("Bumpers Initialized")
 
     def msg_received(self, msg, msg_type):
@@ -37,23 +37,34 @@ class BumperModule(rm.ProtoModule):
         # this function will get called in a loop with FREQUENCY frequency
         msg = Bumper()
         
-        if not self.leftSent:
-            if self.leftFlag:
-                msg.side = Bumper.LEFT
-                self.write(msg.SerializeToString(), MsgType.BUMPER)
-                self.leftSent = True
-        else:
-            if not self.leftFlag:
-                self.leftSent = False
+        # if not self.leftSent:
+        #     if self.leftFlag:
+        #         msg.side = Bumper.LEFT
+        #         self.write(msg.SerializeToString(), MsgType.BUMPER)
+        #         self.leftSent = True
+        # else:
+        #     if not self.leftFlag:
+        #         self.leftSent = False
 
-        if not self.rightSent:
-            if self.rightFlag:
-                msg.side = Bumper.RIGHT
-                self.write(msg.SerializeToString(), MsgType.BUMPER)
-                self.rightSent = True
-        else:
-            if not self.rightFlag:
-                self.rightSent = False
+        # if not self.rightSent:
+        #     if self.rightFlag:
+        #         msg.side = Bumper.RIGHT
+        #         self.write(msg.SerializeToString(), MsgType.BUMPER)
+        #         self.rightSent = True
+        # else:
+        #     if not self.rightFlag:
+        #         self.rightSent = False
+
+        if self.leftFlag:
+            msg.side = Bumper.LEFT
+            self.write(msg.SerializeToString(), MsgType.BUMPER)
+            self.leftFlag = False
+        
+        if self.rightFlag:
+            msg.side = Bumper.RIGHT
+            self.write(msg.SerializeToString(), MsgType.BUMPER)
+            self.rightFlag = False
+
 
     def setLeftFlag(self, channel):
         self.leftFlag = not self.leftFlag
@@ -67,8 +78,8 @@ class BumperModule(rm.ProtoModule):
         GPIO.setup(LEFT_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(RIGHT_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-        GPIO.add_event_detect(LEFT_BUTTON, GPIO.BOTH, self.setLeftFlag, bouncetime=300)
-        GPIO.add_event_detect(RIGHT_BUTTON, GPIO.BOTH, self.setRightFlag, bouncetime=300)
+        GPIO.add_event_detect(LEFT_BUTTON, GPIO.FALLING, self.setLeftFlag, bouncetime=300)
+        GPIO.add_event_detect(RIGHT_BUTTON, GPIO.FALLING, self.setRightFlag, bouncetime=300)
 
         time.sleep(1)
 
