@@ -17,7 +17,7 @@ ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1.1 # adjustment factor for unequal turning
 ROTATIONAL_SPEED = 30 # speed at which rotations occur
-ODOMETRY_LEFT_TURN_THRESHOLD = 240 # odometer cutoff for finishing left turn
+ODOMETRY_LEFT_TURN_THRESHOLD = 230 # odometer cutoff for finishing left turn
 ODOMETRY_RIGHT_TURN_THRESHOLD = 240 # odometer cutoff for finishing right turn
 
 # Constants for pause
@@ -26,7 +26,7 @@ PAUSE_TIME = 1.0 # length of a typical pause
 # Constants for straight motion
 FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD = 9.0 # minimum sensor value before stopping forward motion
+FRONT_SENSOR_THRESHOLD = 10.0 # minimum sensor value before stopping forward motion
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
@@ -34,7 +34,7 @@ P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor
 D_MULTIPLIER = 9.0 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
-ODOMETRY_INITIAL_MOVE_THRESHOLD = 340 # odometer cutoff for finishing initial forward motion
+ODOMETRY_INITIAL_MOVE_THRESHOLD = 360 # odometer cutoff for finishing initial forward motion
 FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 
 # Constants for bump recovery
