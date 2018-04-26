@@ -16,8 +16,8 @@ ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1.1 # adjustment factor for unequal turning
-ROTATIONAL_SPEED = 30 # speed at which rotations occur
-ODOMETRY_LEFT_TURN_THRESHOLD = 230 # odometer cutoff for finishing left turn
+ROTATIONAL_SPEED = 40 # speed at which rotations occur
+ODOMETRY_LEFT_TURN_THRESHOLD = 220 # odometer cutoff for finishing left turn
 ODOMETRY_RIGHT_TURN_THRESHOLD = 240 # odometer cutoff for finishing right turn
 
 # Constants for pause
