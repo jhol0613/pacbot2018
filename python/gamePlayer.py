@@ -26,7 +26,9 @@ PAUSE_TIME = 0.5 # length of a typical pause
 # Constants for straight motion
 FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD = 9 # minimum sensor value before stopping forward motion
+FRONT_SENSOR_THRESHOLD_1 = 11.9 # minimum sensor value before slowing forward motion
+FRONT_SENSOR_THRESHOLD_2 = 5 # minimum sensor value before stopping forward motion
+INTER_THRESHOLD_SPEED = 20 # speed to travel after activating first front threshold
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
@@ -81,8 +83,8 @@ class GamePlayer(rm.ProtoModule):
 
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
             self.distance = msg
-            print("\n"*20)
-            print("Front Center: ", self.distance.front_center)
+            # print("\n"*20)
+            # print("Front Center: ", self.distance.front_center)
         elif msg_type == MsgType.ENCODER_REPORT:
             self.odom_reading = msg
 
@@ -222,8 +224,12 @@ class GamePlayer(rm.ProtoModule):
             # self.csvOut.write(str(pCorrectionFactor) + ",")
             # self.csvOut.write(str(dCorrectionFactor) + "\n")
 
-            twist.velocity = FORWARD_SPEED
-            twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
+            if self.distance.front_center > FRONT_SENSOR_THRESHOLD_1:
+                twist.velocity = FORWARD_SPEED
+                twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
+            else:
+                twist.velocity = INTER_THRESHOLD_SPEED
+                twist.omega = int(float(INTER_THRESHOLD_SPEED)/FORWARD_SPEED) * (FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor)
 
         return twist
 
@@ -326,7 +332,7 @@ class GamePlayer(rm.ProtoModule):
         # return False
         if self.distance:
             print("Front sensor: ", self.distance.front_center)
-            return self.distance.front_center < FRONT_SENSOR_THRESHOLD
+            return self.distance.front_center < FRONT_SENSOR_THRESHOLD_2
         else:
             print("No front sensor value")
             return False
