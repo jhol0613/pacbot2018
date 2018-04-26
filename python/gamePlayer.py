@@ -41,6 +41,7 @@ FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 BUMP_RECOVERY_OMEGA = 15 # should be positive. Potentially negated based on side of bump
 BUMP_RECOVERY_VELOCITY = -30 # should be negative because you want to move backwards
 ODOMETRY_BUMP_RECOVERY_THRESHOLD = 280 # Odometry measured off the outside wheel
+BUMP_RECOVERY_TIMEOUT = 1 # amount of time (seconds) before bump recovery times out
 
 class GamePlayer(rm.ProtoModule):
     def __init__(self, addr, port):
@@ -240,10 +241,11 @@ class GamePlayer(rm.ProtoModule):
         twist = Twist()
         if not self.bumpRecoveryStarted:
             self.bumpRecoveryStarted = True
+            self.timer = time.time()
             encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.BEGIN
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
-        if self.bumpRecoverExitCondition():
+        if self.bumpRecoverExitCondition() or (time.time() - self.timer) > BUMP_RECOVERY_TIMEOUT:
             self.recoveringFromBump = False
             self.bumpRecoveryStarted = False
             encoderControl = EncoderControl()
