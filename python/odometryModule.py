@@ -12,7 +12,7 @@ import sys
 ADDRESS = os.environ.get("BIND_ADDRESS","localhost")
 PORT = os.environ.get("BIND_PORT", 11293)
 
-FREQUENCY = 50
+FREQUENCY = 40
 
 LEFT_ENCODER = 29
 RIGHT_ENCODER = 31
