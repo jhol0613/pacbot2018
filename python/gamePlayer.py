@@ -81,6 +81,7 @@ class GamePlayer(rm.ProtoModule):
 
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
             self.distance = msg
+            print("Front Center: ", self.distance.front_center)
         elif msg_type == MsgType.ENCODER_REPORT:
             self.odom_reading = msg
 
