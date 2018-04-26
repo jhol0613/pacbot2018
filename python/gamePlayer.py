@@ -84,7 +84,9 @@ class GamePlayer(rm.ProtoModule):
             self.odom_reading = msg
 
         elif msg_type == MsgType.BUMPER:
+            print("bump message received...")
             if not self.recoveringFromBump: # only reads new bump events once you've recovered
+                print("bump registered!")
                 self.bumper = msg
                 self.recoveringFromBump = True
 
