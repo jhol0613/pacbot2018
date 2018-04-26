@@ -234,6 +234,7 @@ class GamePlayer(rm.ProtoModule):
 
     # This is the only subroutine that can interrupt another
     def bumpRecover(self):
+        print("bump recovering")
         twist = Twist()
         if not self.bumpRecoveryStarted:
             self.bumpRecoveryStarted = True
