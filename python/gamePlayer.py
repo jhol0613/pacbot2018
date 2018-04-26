@@ -26,9 +26,9 @@ PAUSE_TIME = 0.5 # length of a typical pause
 # Constants for straight motion
 FORWARD_SPEED = 35 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 4 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD_1 = 11.9 # minimum sensor value before slowing forward motion
+FRONT_SENSOR_THRESHOLD_1 = 13 # minimum sensor value before slowing forward motion
 FRONT_SENSOR_THRESHOLD_2 = 5 # minimum sensor value before stopping forward motion
-INTER_THRESHOLD_SPEED = 20 # speed to travel after activating first front threshold
+INTER_THRESHOLD_SPEED = 15 # speed to travel after activating first front threshold
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
