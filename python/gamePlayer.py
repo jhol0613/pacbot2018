@@ -81,6 +81,7 @@ class GamePlayer(rm.ProtoModule):
 
         elif msg_type == MsgType.ULTRASONIC_ARRAY:
             self.distance = msg
+            print("\n"*20)
             print("Front Center: ", self.distance.front_center)
         elif msg_type == MsgType.ENCODER_REPORT:
             self.odom_reading = msg
@@ -96,7 +97,7 @@ class GamePlayer(rm.ProtoModule):
         moveCommand = Twist()
 
         if self.paused:
-            print("Game paused")
+            # print("Game paused")
             moveCommand.velocity = 0
             moveCommand.omega = 0
         else:
