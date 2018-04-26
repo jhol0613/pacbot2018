@@ -21,13 +21,13 @@ ODOMETRY_LEFT_TURN_THRESHOLD = 220 # odometer cutoff for finishing left turn
 ODOMETRY_RIGHT_TURN_THRESHOLD = 220 # odometer cutoff for finishing right turn
 
 # Constants for pause
-PAUSE_TIME = 1.0 # length of a typical pause
+PAUSE_TIME = 0.5 # length of a typical pause
 
 # Constants for straight motion
 FORWARD_SPEED = 40 # nominal forward movement speed
 FORWARD_OMEGA_CORRECTION = 6 # correction for unequal friction
-FRONT_SENSOR_THRESHOLD = 11.9 # minimum sensor value before stopping forward motion
-SENSOR_CASE_THRESHOLD = 7.0 # max sensor reading that is considered when centering path
+FRONT_SENSOR_THRESHOLD = 9 # minimum sensor value before stopping forward motion
+SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
 P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
