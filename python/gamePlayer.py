@@ -12,7 +12,7 @@ PORT = os.environ.get("BIND_PORT", 11293)
 FREQUENCY = 50
 
 # File containing action sequence for the robot
-ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
+ACTION_SEQUENCE_FILES = ["paths/path1.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1.1 # adjustment factor for unequal turning
@@ -229,8 +229,8 @@ class GamePlayer(rm.ProtoModule):
                 twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
             else:
                 twist.velocity = INTER_THRESHOLD_SPEED
-                twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
-                # twist.omega = int(float(INTER_THRESHOLD_SPEED)/FORWARD_SPEED) * (FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor)
+                # twist.omega = FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor
+                twist.omega = int(float(INTER_THRESHOLD_SPEED)/FORWARD_SPEED) * (FORWARD_OMEGA_CORRECTION + pCorrectionFactor + dCorrectionFactor)
 
         return twist
 
