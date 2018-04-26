@@ -32,8 +32,8 @@ INTER_THRESHOLD_SPEED = 18 # speed to travel after activating first front thresh
 SENSOR_CASE_THRESHOLD = 11 # max sensor reading that is considered when centering path
 SENSOR_CASE_MIN = 3.5 # assume sensor readings below this are garbage and don't consider
 SENSOR_TARGET = 7.0 # target value that sensors try to return to
-P_MULTIPLIER = 5.0 # this is multiplied by calculated position correction factor to determine omega
-D_MULTIPLIER = 9.0 # this is multiplied by calculated direction correction factor to determine omega
+P_MULTIPLIER = 8.0 # this is multiplied by calculated position correction factor to determine omega
+D_MULTIPLIER = 12.0 # this is multiplied by calculated direction correction factor to determine omega
 
 # Constants for initial move (odometered forward motion)
 ODOMETRY_INITIAL_MOVE_THRESHOLD = 360 # odometer cutoff for finishing initial forward motion
