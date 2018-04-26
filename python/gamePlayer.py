@@ -328,7 +328,7 @@ class GamePlayer(rm.ProtoModule):
         if self.odom_reading:
             print("Left odom reading: ", self.odom_reading.left)
             print("Right odom reading: ", self.odom_reading.right)
-            if self.bumper.side = Bumper.LEFT: # measure odometry off outer wheel
+            if self.bumper.side == Bumper.LEFT: # measure odometry off outer wheel
                 if self.odom_reading.right > ODOMETRY_BUMP_RECOVERY_THRESHOLD:
                     return True
             else:
