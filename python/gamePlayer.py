@@ -38,8 +38,8 @@ ODOMETRY_INITIAL_MOVE_THRESHOLD = 290 # odometer cutoff for finishing initial fo
 FORWARD_CORRECTION_CONSTANT = 1 # adjustment for unequal motion
 
 # Constants for bump recovery
-BUMP_RECOVERY_OMEGA = 20 # should be positive. Potentially negated based on side of bump
-BUMP_RECOVERY_VELOCITY = -20 # should be negative because you want to move backwards
+BUMP_RECOVERY_OMEGA = 15 # should be positive. Potentially negated based on side of bump
+BUMP_RECOVERY_VELOCITY = -30 # should be negative because you want to move backwards
 ODOMETRY_BUMP_RECOVERY_THRESHOLD = 230 # Odometry measured off the outside wheel
 
 class GamePlayer(rm.ProtoModule):
