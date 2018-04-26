@@ -139,7 +139,7 @@ class GamePlayer(rm.ProtoModule):
             encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.BEGIN
             self.write(encoderControl.SerializeToString(), MsgType.ENCODER_CONTROL)
-        if self.turn90RightExitCondition():
+        if self.turn90LeftExitCondition():
             self.action_complete = True
             encoderControl = EncoderControl()
             encoderControl.command = EncoderControl.RESET
