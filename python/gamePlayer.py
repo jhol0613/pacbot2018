@@ -12,7 +12,7 @@ PORT = os.environ.get("BIND_PORT", 11293)
 FREQUENCY = 50
 
 # File containing action sequence for the robot
-ACTION_SEQUENCE_FILES = ["paths/testPath.txt"]
+ACTION_SEQUENCE_FILES = ["paths/path1.txt"]
 
 # Constants for rotations
 ROTATIONAL_CORRECTION_CONSTANT = 1.1 # adjustment factor for unequal turning
@@ -99,7 +99,7 @@ class GamePlayer(rm.ProtoModule):
         moveCommand = Twist()
 
         if self.paused:
-            # print("Game paused")
+            print("Game paused")
             moveCommand.velocity = 0
             moveCommand.omega = 0
         else:
